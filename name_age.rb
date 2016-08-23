@@ -17,4 +17,4 @@ def yearcalc age
 end
 
 #Greeting output
-puts "Hi " + name + ", looks like you have been a problem on this planet since about " + (yearcalc(age)-1).to_s + " or " + yearcalc(age).to_s
+puts "Hi #{name}, looks like you have been a problem on this planet since about #{(yearcalc(age)-1).to_s} or #{yearcalc(age)}"
