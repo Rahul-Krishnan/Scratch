@@ -2,7 +2,7 @@
 puts "(E)ncode or (D)ecode?"
 selection = gets.chomp.downcase
 
-puts "Please enter your message:"
+puts "Please enter your message (ONLY letters, NO spaces/special characters):"
 secret = gets.chomp
 
 puts "Please give me a number:"
