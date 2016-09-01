@@ -1,23 +1,14 @@
-#Ask for user inputs
-puts "(E)ncode or (D)ecode?"
-selection = gets.chomp.downcase
-
-puts "Please enter your message (ONLY letters, NO spaces/special characters):"
-secret = gets.chomp
-
-puts "Please give me a number:"
-number = gets.chomp.to_i%26
-
-#Message error check
-error = 0
-if selection == "e"
-	secret.chars.each do |x|
-		if x.upcase.ord < 65 || x.upcase.ord > 90
+#Error Check Method
+def check message
+	error = 0
+	message.chars.each do |x|
+		if x.ord == 32
+		elsif x.upcase.ord < 65 || x.upcase.ord > 90
 			error +=1
 		else
 		end
 	end
-else
+	return error
 end
 
 #Encryption Method
@@ -43,15 +34,35 @@ def decrypt message, number
 	decoded = decoded_array.join
 end
 
-#Control Flow
-if error >0
-	puts "Only valid letter characters in the message, please!"
-elsif selection == "e"
+#Ask for user operation direction
+puts "(E)ncode or (D)ecode?"
+selection = gets.chomp.downcase
+#Check the input makes sense
+while selection !="e" && selection !="d"
+	puts "That wasn't right! Please select E or D:"
+	selection = gets.chomp.downcase
+end
+
+if selection == "e"
+	puts "Please enter message to encrypt (ONLY letters, NO numbers/special characters):"
+	secret = gets.chomp
+	while check(secret) >0
+		puts "Only valid letter characters in the message, please:"
+		secret = gets.chomp
+	end
+else
+	puts "Please enter message to decrypt:"
+	secret = gets.chomp
+end
+
+puts "Please give me a number:"
+number = gets.chomp.to_i%26
+
+#Output
+if selection == "e"
 	encoded_message = encrypt(secret,number)
 	puts "Encoded Message: #{encoded_message}"
-elsif selection == "d"
+else
 	decoded_message = decrypt(secret,number)
 	puts "Decoded Message: #{decoded_message}"
-else
-	puts "That wasn't right! Please select E or D."
 end
