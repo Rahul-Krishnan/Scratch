@@ -17,10 +17,14 @@ def encrypt message, number
 	encoded = ""
 	characters = message.chars
 	characters.each do |x|
-		y = (x.ord + number).chr
-		encoded_array.push(y)
+		if x.ord == 32
+			encoded_array.push(x)
+		else
+			y = (x.ord + number - 57).chr
+			encoded_array.push(y)
+		end
 	end
-	return encoded = encoded_array.join
+	encoded = encoded_array.join
 end
 
 #Decryption Method
@@ -28,8 +32,12 @@ def decrypt message, number
 	decoded_array = []
 	characters = message.chars
 	characters.each do |y|
-		x = (y.ord - number).chr
-		decoded_array.push(x)
+		if y.ord == 32
+			decoded_array.push(y)
+		else
+			x = (y.ord - number + 57).chr
+			decoded_array.push(x)
+		end
 	end
 	decoded = decoded_array.join
 end
@@ -56,7 +64,7 @@ else
 end
 
 puts "Please give me a number:"
-number = gets.chomp.to_i%26
+number = gets.chomp.to_i%57
 
 #Output
 if selection == "e"
