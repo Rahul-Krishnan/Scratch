@@ -14,14 +14,14 @@ class Player
   end
 
   def deal
-    @card_1 = rand(1..11)
-    @card_2 = rand(1..11)
+    @card_1 = rand(1..10)
+    @card_2 = rand(1..10)
     @score = @card_1 + @card_2
     @busted = false
   end
 
   def hit
-    new_card = rand(1..11)
+    new_card = rand(1..10)
     puts "HIT with: #{new_card}"
     @score = @score + new_card
   end
@@ -65,7 +65,7 @@ while quit.downcase != "q" && human.bankroll > 0
   puts "\nHere is the Dealer's open card:"
   puts "#{dealer.card_1}"
 
-  #human plays the game
+  #Human plays the game
   puts "\nWould you like to (H)it or (S)tay?"
   choice = gets.chomp
   while choice.downcase != "h" && choice.downcase != "s"
@@ -102,7 +102,7 @@ while quit.downcase != "q" && human.bankroll > 0
     end
   end
 
-  #Final Result
+  #Round Result
   if human.busted == false && dealer.busted == false
     puts "\nYour final score is #{human.score} and the dealer scored #{dealer.score}"
     if human.score > dealer.score
@@ -117,6 +117,8 @@ while quit.downcase != "q" && human.bankroll > 0
     end
   else
   end
+
+  #Next Round Input
   puts "*"*20
   puts ""
   if human.bankroll > 0
