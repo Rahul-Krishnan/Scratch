@@ -14,14 +14,14 @@ class Player
   end
 
   def deal
-    @card_1 = rand(1..10)
-    @card_2 = rand(1..10)
+    @card_1 = [1,2,3,4,5,6,7,8,9,10,10,10,10].sample
+    @card_2 = [1,2,3,4,5,6,7,8,9,10,10,10,10].sample
     @score = @card_1 + @card_2
     @busted = false
   end
 
   def hit
-    new_card = rand(1..10)
+    new_card = [1,2,3,4,5,6,7,8,9,10,10,10,10].sample
     puts "HIT with: #{new_card}"
     @score = @score + new_card
   end
