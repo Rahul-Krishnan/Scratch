@@ -42,24 +42,37 @@ dealer = Player.new "dealer", 0, 0, 1, 1
 #Introduction to the game
 puts "Welcome to our Blackjack table! What is your name?"
 human.name = gets.chomp.capitalize
-puts "How much are you bringing to the table?"
-human.bankroll = gets.chomp.to_i
+while human.bankroll == 0
+  puts "How much are you bringing to the table?"
+  human.bankroll = gets.chomp.to_i
+end
 
 quit = ""
 while quit.downcase != "q" && human.bankroll > 0
   #Round begins
   human.deal
   dealer.deal
+
   puts "*" * 20
   puts "NEW ROUND BEGINNING"
   puts "*" * 20
   puts "Place your bet:"
   human.wager = gets.chomp.to_i
-  #check the bet isn't more than your bankroll
-  while human.wager > human.bankroll
-    puts "Uh oh. You can't wager more than you have! Place your bet:"
-    human.wager = gets.chomp.to_i
+
+  #Error check
+  while human.wager.to_i == 0 || human.wager > human.bankroll
+    #check the wager is a number
+    if human.wager.to_i == 0
+      puts "That isn't a number! Place your bet:"
+      human.wager = gets.chomp.to_i
+    #check the bet isn't more than your bankroll
+    else human.wager > human.bankroll
+      puts "Uh oh. You can't wager more than you have! Place your bet:"
+      human.wager = gets.chomp.to_i
+    end
   end
+
+  #Initial card display
   puts "\nHere are your cards:"
   puts "#{human.card_1}\n#{human.card_2}\nTotal Score of #{human.score}"
   puts "\nHere is the Dealer's open card:"
@@ -83,6 +96,10 @@ while quit.downcase != "q" && human.bankroll > 0
       puts "Your total score is #{human.score}\n\n"
       puts "Would you like to (H)it or (S)tay?"
       choice = gets.chomp
+      while choice.downcase != "h" && choice.downcase != "s"
+        puts "That didn't make sense. (H)it or (S)tay?"
+        choice = gets.chomp
+      end
     end
   end
 
