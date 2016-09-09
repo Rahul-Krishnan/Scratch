@@ -88,9 +88,9 @@ while quit.downcase != "q" && human.bankroll > 0
   human.wager = gets.chomp.to_i
 
   #Error check
-  while human.wager.to_i == 0 || human.wager > human.bankroll
+  while human.wager == 0 || human.wager > human.bankroll
     #check the wager is a number
-    if human.wager.to_i == 0
+    if human.wager == 0
       puts "That isn't a number! Place your bet:"
       human.wager = gets.chomp.to_i
     #check the bet isn't more than your bankroll
@@ -157,8 +157,7 @@ while quit.downcase != "q" && human.bankroll > 0
       puts "\nDealer wins!"
       human.bankroll = human.bankroll - human.wager
     else
-      puts "\nTIE! Dealer wins the push!"
-      human.bankroll = human.bankroll - human.wager
+      puts "\nPUSH! Nobody wins the tie!"
     end
   else
   end
