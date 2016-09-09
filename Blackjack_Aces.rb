@@ -29,10 +29,16 @@ class Player
 
   def deal
     @cards = []
+    @busted = false
     @cards << @deck.values.sample
     @cards << @deck.values.sample
     @score = @cards[0].to_i + @cards[1].to_i
-    @busted = false
+    #Aces 1 vs 11 adjusmtent
+    if @cards.include?(11) && @score > 21
+      @cards[@cards.index(11)] = 1
+      @score = @score - 10
+    else
+    end
   end
 
   def hit
@@ -40,6 +46,7 @@ class Player
     puts "HIT with: #{@deck.key(new_card)}"
     @cards << new_card
     @score = @score + new_card.to_i
+    #Aces 1 vs 11 adjusmtent
     if @cards.include?(11) && @score > 21
       @cards[@cards.index(11)] = 1
       @score = @score - 10
