@@ -1,7 +1,7 @@
 #Player Class
 class Player
   attr_accessor :name, :bankroll, :wager, :card_1, :card_2
-  attr_reader :score, :busted
+  attr_reader :score, :busted, :deck
 
   def initialize name, bankroll, wager, card_1, card_2
     @name = name
@@ -11,19 +11,35 @@ class Player
     @card_2 = card_2
     @score = score
     @busted = false
+    @deck = {
+      "2" => 2,
+      "3" => 3,
+      "4" => 4,
+      "5" => 5,
+      "6" => 6,
+      "7" => 7,
+      "8" => 8,
+      "9" => 9,
+      "10" => 10,
+      "Jack" => 10.001,
+      "Queen" => 10.002,
+      "King" => 10.003,
+      "Ace" => 1
+    }
   end
 
   def deal
-    @card_1 = [1,2,3,4,5,6,7,8,9,10,10,10,10].sample
-    @card_2 = [1,2,3,4,5,6,7,8,9,10,10,10,10].sample
-    @score = @card_1 + @card_2
+    @card_1 = @deck.values.sample
+    @card_2 = @deck.values.sample
+    @score = @card_1.to_i + @card_2.to_i
     @busted = false
+
   end
 
   def hit
-    new_card = [1,2,3,4,5,6,7,8,9,10,10,10,10].sample
-    puts "HIT with: #{new_card}"
-    @score = @score + new_card
+    new_card = @deck.values.sample
+    puts "HIT with: #{@deck.key(new_card)}"
+    @score = @score + new_card.to_i
   end
 
   def check_bust
@@ -74,9 +90,9 @@ while quit.downcase != "q" && human.bankroll > 0
 
   #Initial card display
   puts "\nHere are your cards:"
-  puts "#{human.card_1}\n#{human.card_2}\nTotal Score of #{human.score}"
+  puts "#{human.deck.key(human.card_1)}\n#{human.deck.key(human.card_2)}\nTotal Score of #{human.score}"
   puts "\nHere is the Dealer's open card:"
-  puts "#{dealer.card_1}"
+  puts "#{dealer.deck.key(dealer.card_1)}"
 
   #Human plays the game
   puts "\nWould you like to (H)it or (S)tay?"
@@ -106,7 +122,7 @@ while quit.downcase != "q" && human.bankroll > 0
   #Dealer plays the game
   puts "*"*20
   puts ""
-  puts "Dealer holds #{dealer.card_1} and #{dealer.card_2} (Total Score of #{dealer.score})"
+  puts "Dealer holds #{dealer.deck.key(dealer.card_1)} and #{dealer.deck.key(dealer.card_2)} (Total Score of #{dealer.score})"
   while human.busted == false && dealer.busted == false && dealer.score <17
     dealer.hit
     dealer.check_bust
