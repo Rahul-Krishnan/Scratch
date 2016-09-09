@@ -1,7 +1,7 @@
 #Player Class
 class Player
-  attr_accessor :name, :bankroll, :wager, :cards
-  attr_reader :score, :busted, :deck
+  attr_accessor :name, :bankroll, :wager, :cards #Should :cards go in accessor or reader?
+  attr_reader :score, :busted, :deck # Is it ok to initialize a data-filled hash?
 
   def initialize name, bankroll, wager, cards
     @name = name
