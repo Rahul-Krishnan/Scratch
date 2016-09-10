@@ -113,7 +113,10 @@ while quit.downcase != "q" && human.bankroll > 0
     puts ""
   end
   puts "\nHere is the Dealer's open card:"
-  puts "#{dealer.deck.key(dealer.cards[0])}"
+  #Double-Ace exception
+  first_dealer_card = dealer.deck.key(dealer.cards[0])
+  first_dealer_card ||= "Ace"
+  puts "#{first_dealer_card}"
 
   #Human plays the game
   puts "\nWould you like to (H)it or (S)tay?"
@@ -144,10 +147,6 @@ while quit.downcase != "q" && human.bankroll > 0
   puts ""
 
   #Dealer initial adjustments and statements
-
-  #Double-Ace exception
-  first_dealer_card = dealer.deck.key(dealer.cards[0])
-  first_dealer_card ||= "Ace"
   print "Dealer holds #{first_dealer_card} and #{dealer.deck.key(dealer.cards[1])} (Total Score of #{dealer.score})"
   #Notify if dealer has Blackjack
   if dealer.score == 21
