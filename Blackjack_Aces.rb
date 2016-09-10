@@ -1,9 +1,9 @@
 #Player Class
 class Player
-  attr_accessor :name, :bankroll, :wager, :cards #Should :cards go in accessor or reader?
-  attr_reader :score, :busted, :deck # Is it ok to initialize a data-filled hash?
+  attr_accessor :name, :bankroll, :wager #Should :cards go in accessor or reader? Seems to work either way, so why should it matter? Wouldn't keeping all the methods as attr_accessor give more flexibility in the code?
+  attr_reader :score, :busted, :deck, :cards # Is it ok to initialize a data-filled hash? Why start out calling any of the variables strings (eg bankroll- i could have set it at 0 instead of "bankroll" to start)? Does it matter or is it irrelevant as a placeholder?
 
-  def initialize name, bankroll, wager, cards
+  def initialize name, bankroll, wager
     @name = name
     @bankroll = bankroll
     @wager = wager
@@ -64,8 +64,8 @@ class Player
 end
 
 #Initialize Players
-human = Player.new "human", 0, 0, []
-dealer = Player.new "dealer", 0, 0, []
+human = Player.new "human", 0, 0
+dealer = Player.new "dealer", 0, 0
 
 #Introduction to the game
 puts "Welcome to our Blackjack table! What is your name?"
