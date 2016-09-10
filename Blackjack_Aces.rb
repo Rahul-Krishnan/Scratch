@@ -33,12 +33,6 @@ class Player
     @cards << @deck.values.sample
     @cards << @deck.values.sample
     @score = @cards[0].to_i + @cards[1].to_i
-    #Aces 1 vs 11 adjusmtent
-    if @cards.include?(11) && @score > 21
-      @cards[@cards.index(11)] = 1
-      @score = @score - 10
-    else
-    end
   end
 
   def hit
@@ -102,7 +96,13 @@ while quit.downcase != "q" && human.bankroll > 0
 
   #Initial card display
   puts "\nHere are your cards:"
-  puts "#{human.deck.key(human.cards[0])}\n#{human.deck.key(human.cards[1])}\nTotal Score of #{human.score}"
+  print "#{human.deck.key(human.cards[0])}\n#{human.deck.key(human.cards[1])}\nTotal Score of #{human.score}"
+  #Notify if player has Blackjack
+  if human.score == 21
+    puts " ***BLACKJACK***"
+  else
+    puts ""
+  end
   puts "\nHere is the Dealer's open card:"
   puts "#{dealer.deck.key(dealer.cards[0])}"
 
@@ -131,10 +131,27 @@ while quit.downcase != "q" && human.bankroll > 0
     end
   end
 
-  #Dealer plays the game
   puts "*"*20
   puts ""
-  puts "Dealer holds #{dealer.deck.key(dealer.cards[0])} and #{dealer.deck.key(dealer.cards[1])} (Total Score of #{dealer.score})"
+
+  #Dealer initial adjustments and statements
+
+  #Aces 1 vs 11 adjusmtent in case player busts and dealer has 2 Aces
+  if dealer.cards.include?(11) && dealer.score > 21
+    dealer.cards[dealer.cards.index(11)] = 1
+    dealer.score = dealer.score - 10
+  else
+  end
+
+  print "Dealer holds #{dealer.deck.key(dealer.cards[0])} and #{dealer.deck.key(dealer.cards[1])} (Total Score of #{dealer.score})"
+  #Notify if dealer has Blackjack
+  if dealer.score == 21
+    puts " ***BLACKJACK***"
+  else
+    puts ""
+  end
+
+  #Dealer plays the game
   while human.busted == false && dealer.busted == false && dealer.score <17
     dealer.hit
     dealer.check_bust
