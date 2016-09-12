@@ -70,8 +70,11 @@ dealer = Player.new "dealer", 0, 0
 #Introduction to the game
 puts "Welcome to our Blackjack table! What is your name?"
 human.name = gets.chomp.capitalize
+puts "How much are you bringing to the table?"
+human.bankroll = gets.chomp.to_i
+#Error check
 while human.bankroll == 0
-  puts "How much are you bringing to the table?"
+  puts "That isn't a number! How much do you want to play with?"
   human.bankroll = gets.chomp.to_i
 end
 
