@@ -3,10 +3,11 @@ require 'pry'
 require 'terminal-table'
 
 class Suspects
-  attr_reader :suspect_list, :suspect_count
+  attr_reader :suspect_list, :suspect_count, :suspect_names
 
   def initialize
     @suspect_list = CSV.read('Suspects.csv')
+    @suspect_names = []
     @suspect_count = 0
     @suspect_list.each do |name, gender, skin, hair, eye|
       name.capitalize!
@@ -14,6 +15,13 @@ class Suspects
       skin.capitalize!
       hair.capitalize!
       eye.capitalize!
+    end
+  end
+
+  def name_suspects
+    @suspect_names = []
+    @suspect_list.each do |name, gender, skin, hair, eye|
+      @suspect_names << name
     end
   end
 
@@ -199,10 +207,17 @@ while guesses.guess_count < 3 && answer != perp.name
     suspects.remove_wrong_eye(entry)
   end
 
+  suspects.name_suspects
+
   puts "\nHere are the remaining suspects:"
   suspects.show_suspects
   puts "\nTake a guess at the name!"
   answer = gets.chomp.capitalize
+  while !suspects.suspect_names.include?(answer)
+    puts "Whoops, that isn't a suspect! Take a real guess:"
+    answer = gets.chomp.capitalize
+  end
+
   if answer != perp.name
     puts "Nope, that isn't right. Guesses left: #{3-guesses.guess_count}"
     suspects.remove_guess(answer)
