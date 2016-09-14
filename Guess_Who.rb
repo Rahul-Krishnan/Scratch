@@ -8,6 +8,13 @@ class Suspects
   def initialize
     @suspect_list = CSV.read('Suspects.csv')
     @suspect_count = 0
+    @suspect_list.each do |name, gender, skin, hair, eye|
+      name.capitalize!
+      gender.capitalize!
+      skin.capitalize!
+      hair.capitalize!
+      eye.capitalize!
+    end
   end
 
   def count_suspects
@@ -158,7 +165,7 @@ while guess_count < 3 && answer != perp.name
   when "H" then puts "What hair color?"
   when "E" then puts "What eye color?"
   end
-  entry = gets.chomp.downcase
+  entry = gets.chomp.capitalize
 
   #Error check
   count = 0
@@ -168,7 +175,7 @@ while guess_count < 3 && answer != perp.name
     end
     if count == 0
       puts "Invalid entry, please try again:"
-      entry = gets.chomp.downcase
+      entry = gets.chomp.capitalize
     end
   end
 
@@ -207,7 +214,7 @@ while guess_count < 3 && answer != perp.name
   puts "\nHere are the remaining suspects:"
   suspects.show_suspects
   puts "\nTake a guess at the name!"
-  answer = gets.chomp.downcase
+  answer = gets.chomp.capitalize
   if answer != perp.name
     puts "Nope, that isn't right. Guesses left: #{2-guess_count}"
     guess_count +=1
