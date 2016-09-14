@@ -30,94 +30,57 @@ class Suspects
 
   def remove_guess(name)
     @suspect_list.delete_if do |item|
-      if item[0].include?name
-        true
-      else
-        false
-      end
+      item[0].include?name
     end
   end
 
   def retain_correct_gender(entry)
     @suspect_list.delete_if do |item|
-      if !item[1].include?entry
-        true
-      else
-        false
-      end
+      !item[1].include?entry
     end
   end
 
   def remove_wrong_gender(entry)
     @suspect_list.delete_if do |item|
-      if item[1].include?entry
-        true
-      else
-        false
-      end
+      item[1].include?entry
     end
   end
 
   def retain_correct_skin(entry)
     @suspect_list.delete_if do |item|
-      if !item[2].include?entry
-        true
-      else
-        false
-      end
+      !item[2].include?entry
     end
   end
 
   def remove_wrong_skin(entry)
     @suspect_list.delete_if do |item|
-      if item[2].include?entry
-        true
-      else
-        false
-      end
+      item[2].include?entry
     end
   end
 
   def retain_correct_hair(entry)
     @suspect_list.delete_if do |item|
-      if !item[3].include?entry
-        true
-      else
-        false
-      end
+      !item[3].include?entry
     end
   end
 
   def remove_wrong_hair(entry)
     @suspect_list.delete_if do |item|
-      if item[3].include?entry
-        true
-      else
-        false
-      end
+      item[3].include?entry
     end
   end
 
   def retain_correct_eye(entry)
     @suspect_list.delete_if do |item|
-      if !item[4].include?entry
-        true
-      else
-        false
-      end
+      !item[4].include?entry
     end
   end
 
   def remove_wrong_eye(entry)
     @suspect_list.delete_if do |item|
-      if item[4].include?entry
-        true
-      else
-        false
-      end
+      item[4].include?entry
     end
   end
-
 end
 
 class Perp
@@ -147,10 +110,7 @@ class Guesses
   def count_guesses
     @guess_count = @guess_list.count
   end
-
 end
-
-
 ###################################################
 suspects = Suspects.new
 puts "Welcome to the Police Department. We need your help identifiying a dangerous criminal, but you only get 3 chances to guess! Here are the suspects:\n\n"
