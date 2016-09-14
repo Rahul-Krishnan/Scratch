@@ -160,35 +160,47 @@ while guess_count < 3 && answer != perp.name
   end
   entry = gets.chomp.downcase
 
+  #Error check
+  count = 0
+  while count == 0
+    suspects.suspect_list.each do |item|
+      count +=1 unless !item.include?entry
+    end
+    if count == 0
+      puts "Invalid entry, please try again:"
+      entry = gets.chomp.downcase
+    end
+  end
+
   if choice == "G" && entry == perp.gender
-    puts "Correct!"
+    puts "***CORRECT***"
     suspects.retain_correct_gender(entry)
   elsif choice == "G" && entry != perp.gender
-    puts "Wrong!"
+    puts "***WRONG***"
     suspects.remove_wrong_gender(entry)
   end
 
   if choice == "S" && entry == perp.skin
-    puts "Correct!"
+    puts "***CORRECT***"
     suspects.retain_correct_skin(entry)
   elsif choice == "S" && entry != perp.skin
-    puts "Wrong!"
+    puts "***WRONG***"
     suspects.remove_wrong_skin(entry)
   end
 
   if choice == "H" && entry == perp.hair
-    puts "Correct!"
+    puts "***CORRECT***"
     suspects.retain_correct_hair(entry)
   elsif choice == "H" && entry != perp.hair
-    puts "Wrong!"
+    puts "***WRONG***"
     suspects.remove_wrong_hair(entry)
   end
 
   if choice == "E" && entry == perp.eye
-    puts "Correct!"
+    puts "***CORRECT***"
     suspects.retain_correct_eye(entry)
   elsif choice == "E" && entry != perp.eye
-    puts "Wrong!"
+    puts "***WRONG***"
     suspects.remove_wrong_eye(entry)
   end
 
@@ -205,7 +217,7 @@ while guess_count < 3 && answer != perp.name
 end
 
 if answer == perp.name
-  puts "Congratulations! You guessed right!"
+  puts "***CONGRATULATIONS*** You guessed right! #{perp.name.capitalize} is now locked up."
 else
   puts "Tough luck. #{perp.name.capitalize} got away. Get outta here!"
 end
