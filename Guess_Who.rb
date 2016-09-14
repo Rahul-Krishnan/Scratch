@@ -16,6 +16,7 @@ class Suspects
       hair.capitalize!
       eye.capitalize!
     end
+    @suspect_list.shuffle!
   end
 
   def name_suspects
