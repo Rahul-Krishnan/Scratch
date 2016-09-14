@@ -93,8 +93,8 @@ class Suspects
 end
 
 class Perp
-  attr_reader :choice_number
   attr_accessor :name, :gender, :skin, :hair, :eye
+  attr_reader :choice_number
 
   def initialize total_suspects
     @choice_number = rand(total_suspects-1)
@@ -221,7 +221,7 @@ while guesses.guess_count < 3 && answer != perp.name
 end
 
 if answer == perp.name
-  puts "***CONGRATULATIONS*** You guessed right! #{perp.name.capitalize} is now locked up."
+  puts "\n***CONGRATULATIONS*** You guessed right! #{perp.name.capitalize} is now locked up."
 else
-  puts "Tough luck. #{perp.name.capitalize} got away. Get outta here!"
+  puts "\nYOU SUCK. #{perp.name.capitalize} got away and eventually murdered a family. You are a disgrace to this department and to your country. Get outta here!"
 end
