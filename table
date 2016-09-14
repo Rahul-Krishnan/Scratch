@@ -1,0 +1,57 @@
+=> [32m#<Terminal::Table:0x000000028e4d90[0m
+ @column_widths[32m=[0m[],
+ @headings[32m=[0m
+  [[32m#<Terminal::Table::Row:0x000000028df9d0[0m
+    @cell_index[32m=[0m[1;34m0[0m,
+    @cells[32m=[0m[],
+    @table[32m=[0m[32m#<Terminal::Table:0x000000028e4d90[0m ...[32m>[0m[32m>[0m],
+ @require_column_widths_recalc[32m=[0m[1;36mtrue[0m,
+ @rows[32m=[0m
+  [[32m#<Terminal::Table::Row:0x000000028df750[0m
+    @cell_index[32m=[0m[1;34m2[0m,
+    @cells[32m=[0m
+     [[32m#<Terminal::Table::Cell:0x000000028def30[0m
+       @alignment[32m=[0m[1;36mnil[0m,
+       @colspan[32m=[0m[1;34m1[0m,
+       @index[32m=[0m[1;34m0[0m,
+       @table[32m=[0m[32m#<Terminal::Table:0x000000028e4d90[0m ...[32m>[0m,
+       @value[32m=[0m[31m[1;31m"[0m[31ma[1;31m"[0m[31m[0m,
+       @width[32m=[0m[1;34m1[0m[32m>[0m,
+      [32m#<Terminal::Table::Cell:0x000000028de738[0m
+       @alignment[32m=[0m[1;36mnil[0m,
+       @colspan[32m=[0m[1;34m1[0m,
+       @index[32m=[0m[1;34m1[0m,
+       @table[32m=[0m[32m#<Terminal::Table:0x000000028e4d90[0m ...[32m>[0m,
+       @value[32m=[0m[1;34m1[0m,
+       @width[32m=[0m[1;34m1[0m[32m>[0m],
+    @table[32m=[0m[32m#<Terminal::Table:0x000000028e4d90[0m ...[32m>[0m[32m>[0m,
+   [32m#<Terminal::Table::Row:0x000000028de4b8[0m
+    @cell_index[32m=[0m[1;34m2[0m,
+    @cells[32m=[0m
+     [[32m#<Terminal::Table::Cell:0x000000028de058[0m
+       @alignment[32m=[0m[1;36mnil[0m,
+       @colspan[32m=[0m[1;34m1[0m,
+       @index[32m=[0m[1;34m0[0m,
+       @table[32m=[0m[32m#<Terminal::Table:0x000000028e4d90[0m ...[32m>[0m,
+       @value[32m=[0m[31m[1;31m"[0m[31mb[1;31m"[0m[31m[0m,
+       @width[32m=[0m[1;34m1[0m[32m>[0m,
+      [32m#<Terminal::Table::Cell:0x000000028dd338[0m
+       @alignment[32m=[0m[1;36mnil[0m,
+       @colspan[32m=[0m[1;34m1[0m,
+       @index[32m=[0m[1;34m1[0m,
+       @table[32m=[0m[32m#<Terminal::Table:0x000000028e4d90[0m ...[32m>[0m,
+       @value[32m=[0m[1;34m2[0m,
+       @width[32m=[0m[1;34m1[0m[32m>[0m],
+    @table[32m=[0m[32m#<Terminal::Table:0x000000028e4d90[0m ...[32m>[0m[32m>[0m],
+ @style[32m=[0m
+  [32m#<Terminal::Table::Style:0x000000028e5268[0m
+   @alignment[32m=[0m[1;36mnil[0m,
+   @all_separators[32m=[0m[1;36mfalse[0m,
+   @border_i[32m=[0m[31m[1;31m"[0m[31m+[1;31m"[0m[31m[0m,
+   @border_x[32m=[0m[31m[1;31m"[0m[31m-[1;31m"[0m[31m[0m,
+   @border_y[32m=[0m[31m[1;31m"[0m[31m|[1;31m"[0m[31m[0m,
+   @margin_left[32m=[0m[31m[1;31m"[0m[31m[1;31m"[0m[31m[0m,
+   @padding_left[32m=[0m[1;34m1[0m,
+   @padding_right[32m=[0m[1;34m1[0m,
+   @width[32m=[0m[1;36mnil[0m[32m>[0m,
+ @title[32m=[0m[1;36mnil[0m[32m>[0m

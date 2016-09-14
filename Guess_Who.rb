@@ -1,5 +1,6 @@
 require 'csv'
 require 'pry'
+require 'terminal-table'
 
 class Suspects
   attr_reader :suspect_list, :suspect_count
@@ -10,27 +11,104 @@ class Suspects
   end
 
   def count_suspects
-    @suspect_list.each do |item|
+    @suspect_list.each do
       @suspect_count +=1
     end
   end
 
   def show_suspects
-    @suspect_list.each do |name, gender, skin, hair, eye|
-      puts "#{name.capitalize}: #{gender.capitalize}, #{skin} skin, #{hair} hair, #{eye} eyes"
+    table = Terminal::Table.new :headings => ["Name","Gender","Skin Color","Hair Color","Eye Color"], :rows => @suspect_list
+    puts table
+  end
+
+  def retain_correct_gender(entry)
+    @suspect_list.delete_if do |item|
+      if !item[1].include?entry
+        true
+      else
+        false
+      end
     end
   end
 
-  def remove_suspect
+  def remove_wrong_gender(entry)
+    @suspect_list.delete_if do |item|
+      if item[1].include?entry
+        true
+      else
+        false
+      end
+    end
+  end
+
+  def retain_correct_skin(entry)
+    @suspect_list.delete_if do |item|
+      if !item[2].include?entry
+        true
+      else
+        false
+      end
+    end
+  end
+
+  def remove_wrong_skin(entry)
+    @suspect_list.delete_if do |item|
+      if item[2].include?entry
+        true
+      else
+        false
+      end
+    end
+  end
+
+  def retain_correct_hair(entry)
+    @suspect_list.delete_if do |item|
+      if !item[3].include?entry
+        true
+      else
+        false
+      end
+    end
+  end
+
+  def remove_wrong_hair(entry)
+    @suspect_list.delete_if do |item|
+      if item[3].include?entry
+        true
+      else
+        false
+      end
+    end
+  end
+
+  def retain_correct_eye(entry)
+    @suspect_list.delete_if do |item|
+      if !item[4].include?entry
+        true
+      else
+        false
+      end
+    end
+  end
+
+  def remove_wrong_eye(entry)
+    @suspect_list.delete_if do |item|
+      if item[4].include?entry
+        true
+      else
+        false
+      end
+    end
   end
 
 end
 
 class Perp
-  attr_reader :name, :gender, :skin, :hair, :eye
+  attr_reader :choice_number
+  attr_accessor :name, :gender, :skin, :hair, :eye
 
-  def initialize
-    @random = rand(0..10)
+  def initialize total_suspects
+    @choice_number = rand(total_suspects-1)
     @name = name
     @gender = gender
     @skin = skin
@@ -41,20 +119,27 @@ class Perp
 end
 
 suspects = Suspects.new
-perp = Perp.new
 puts "Hi there. Here are the suspects:\n\n"
-#binding.pry
 suspects.show_suspects
 suspects.count_suspects
-# print the rows from the csv
+
+perp = Perp.new(suspects.suspect_count)
+perp.name = suspects.suspect_list[perp.choice_number][0]
+perp.gender = suspects.suspect_list[perp.choice_number][1]
+perp.skin = suspects.suspect_list[perp.choice_number][2]
+perp.hair = suspects.suspect_list[perp.choice_number][3]
+perp.eye = suspects.suspect_list[perp.choice_number][4]
+
 guess_count = 0
-while guess_count < 4
+answer = 0
+#binding.pry
+while guess_count < 3 && answer != perp.name
   puts "\nWhat attribute would you like to guess? (G)ender, (S)kin, (H)air or (E)yes?"
   choice = gets.chomp.upcase
   #Error check
   while choice != "G" && choice != "S" && choice != "H" && choice != "E"
     puts "Invalid entry. (G)ender, (S)kin, (H)air or (E)yes?"
-    choice = gets.chomp
+    choice = gets.chomp.capitalize
   end
 
   case choice
@@ -63,7 +148,53 @@ while guess_count < 4
   when "H" then puts "What hair color?"
   when "E" then puts "What eye color?"
   end
+  entry = gets.chomp.downcase
 
-  entry = gets.chomp
+  if choice == "G" && entry == perp.gender
+    puts "Correct!"
+    suspects.retain_correct_gender(entry)
+  elsif choice == "G" && entry != perp.gender
+    puts "Wrong!"
+    suspects.remove_wrong_gender(entry)
+  end
 
+  if choice == "S" && entry == perp.skin
+    puts "Correct!"
+    suspects.retain_correct_skin(entry)
+  elsif choice == "S" && entry != perp.skin
+    puts "Wrong!"
+    suspects.remove_wrong_skin(entry)
+  end
+
+  if choice == "H" && entry == perp.hair
+    puts "Correct!"
+    suspects.retain_correct_hair(entry)
+  elsif choice == "H" && entry != perp.hair
+    puts "Wrong!"
+    suspects.remove_wrong_hair(entry)
+  end
+
+  if choice == "E" && entry == perp.eye
+    puts "Correct!"
+    suspects.retain_correct_eye(entry)
+  elsif choice == "E" && entry != perp.eye
+    puts "Wrong!"
+    suspects.remove_wrong_eye(entry)
+  end
+
+  puts "\nHere are the remaining suspects:"
+  suspects.show_suspects
+  puts "\nTake a guess at the name!"
+  answer = gets.chomp.downcase
+  if answer != perp.name
+    puts "Nope, that isn't right. Guesses left: #{2-guess_count}"
+    guess_count +=1
+  else
+  end
+end
+
+if answer == perp.name
+  puts "Congratulations! You guessed right!"
+else
+  puts "Tough luck. #{perp.name.capitalize} got away. Get outta here!"
 end
