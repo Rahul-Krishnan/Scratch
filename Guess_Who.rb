@@ -132,9 +132,26 @@ class Perp
     @hair = hair
     @eye = eye
   end
+end
+
+class Guesses
+  attr_accessor :guess_list
+  attr_reader :guess_count, :available_choices
+
+  def initialize
+    @guess_list = []
+    @guess_count = 0
+    @available_choices = ["G", "H", "S", "E"]
+  end
+
+  def count_guesses
+    @guess_count = @guess_list.count
+  end
 
 end
 
+
+###################################################
 suspects = Suspects.new
 puts "Welcome to the Police Department. We need your help identifiying a dangerous criminal, but you only get 3 chances to guess! Here are the suspects:\n\n"
 suspects.show_suspects
@@ -147,18 +164,29 @@ perp.skin = suspects.suspect_list[perp.choice_number][2]
 perp.hair = suspects.suspect_list[perp.choice_number][3]
 perp.eye = suspects.suspect_list[perp.choice_number][4]
 
-guess_count = 0
+guesses = Guesses.new
+
 answer = 0
-#binding.pry
-while guess_count < 3 && answer != perp.name
+
+while guesses.guess_count < 3 && answer != perp.name
   puts "\nWhat attribute would you like to guess? (G)ender, (S)kin, (H)air or (E)yes?"
-  choice = gets.chomp.upcase
+  choice = gets.chomp.capitalize
   #Error check
-  while choice != "G" && choice != "S" && choice != "H" && choice != "E"
-    puts "Invalid entry. (G)ender, (S)kin, (H)air or (E)yes?"
-    choice = gets.chomp.capitalize
+  while guesses.guess_list.include?(choice) || !guesses.available_choices.include?(choice)
+    while !guesses.available_choices.include?(choice)
+      puts "Invalid entry. (G)ender, (S)kin, (H)air or (E)yes?"
+      choice = gets.chomp.capitalize
+    end
+    while guesses.guess_list.include?(choice)
+      puts "You already tried that. Try another attribute:"
+      choice = gets.chomp.capitalize
+    end
   end
 
+  guesses.guess_list << choice
+  guesses.count_guesses
+
+#binding.pry
   case choice
   when "G" then puts "Which gender?"
   when "S" then puts "What skin color?"
@@ -216,8 +244,7 @@ while guess_count < 3 && answer != perp.name
   puts "\nTake a guess at the name!"
   answer = gets.chomp.capitalize
   if answer != perp.name
-    puts "Nope, that isn't right. Guesses left: #{2-guess_count}"
-    guess_count +=1
+    puts "Nope, that isn't right. Guesses left: #{3-guesses.guess_count}"
     suspects.remove_guess(answer)
   else
   end
