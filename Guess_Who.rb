@@ -140,15 +140,9 @@ while guesses.guess_count < 3 && answer != perp.name
   puts "\nWhat attribute would you like to guess? (G)ender, (S)kin, (H)air or (E)yes?"
   choice = gets.chomp.capitalize
   #Error check
-  while guesses.guess_list.include?(choice) || !guesses.available_choices.include?(choice)
-    while !guesses.available_choices.include?(choice)
-      puts "Invalid entry. (G)ender, (S)kin, (H)air or (E)yes?"
-      choice = gets.chomp.capitalize
-    end
-    while guesses.guess_list.include?(choice)
-      puts "You already tried that. Try another attribute:"
-      choice = gets.chomp.capitalize
-    end
+  while !guesses.available_choices.include?(choice)
+    puts "Invalid entry. (G)ender, (S)kin, (H)air or (E)yes?"
+    choice = gets.chomp.capitalize
   end
 
   guesses.guess_list << choice
