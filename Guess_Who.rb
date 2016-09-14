@@ -21,6 +21,16 @@ class Suspects
     puts table
   end
 
+  def remove_guess(name)
+    @suspect_list.delete_if do |item|
+      if item[0].include?name
+        true
+      else
+        false
+      end
+    end
+  end
+
   def retain_correct_gender(entry)
     @suspect_list.delete_if do |item|
       if !item[1].include?entry
@@ -189,6 +199,7 @@ while guess_count < 3 && answer != perp.name
   if answer != perp.name
     puts "Nope, that isn't right. Guesses left: #{2-guess_count}"
     guess_count +=1
+    suspects.remove_guess(answer)
   else
   end
 end
