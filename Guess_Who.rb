@@ -129,7 +129,7 @@ class Perp
 end
 
 suspects = Suspects.new
-puts "Hi there. Here are the suspects:\n\n"
+puts "Welcome to the Police Department. We need your help identifiying a dangerous criminal, but you only get 3 chances to guess! Here are the suspects:\n\n"
 suspects.show_suspects
 suspects.count_suspects
 
