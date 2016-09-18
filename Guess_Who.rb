@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require 'terminal-table'
 
 class Suspects
@@ -149,7 +148,6 @@ while guesses.guess_count < 3 && answer != perp.name
   guesses.guess_list << choice
   guesses.count_guesses
 
-#binding.pry
   case choice
   when "G" then puts "Which gender?"
   when "S" then puts "What skin color?"
