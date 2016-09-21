@@ -1,20 +1,24 @@
-require 'pry'
 require './n_board.rb'
 
-puts "*"*30
-puts "Welcome to Connect Four(TM)"
-puts "*"*30
+puts "*"*25
+puts "Welcome to Connect-N"
+puts "*"*25
 puts "\nPress Q to Quit or any other key to continue:"
 input = gets.chomp.downcase
 while input != "q"
-
-  board = Board.new
+  puts "How many rows on the board?"
+  r = gets.chomp.to_i
+  puts "How many columns on the board?"
+  c = gets.chomp.to_i
+  puts "How many pieces in a row to win?"
+  w = gets.chomp.to_i
+  board = Board.new(r, c, w)
   board.create_board
   board.print_board
 
   while board.win_state == false
 
-    puts "\nPlayer 1, please select a column (1-7):"
+    puts "\nPlayer 1, please select a column (1-#{c}):"
     column = gets.chomp.to_i
     while board.check_valid_selection(column) == false
       puts "Can't do that. Please select a valid column:"
@@ -22,7 +26,6 @@ while input != "q"
     end
     puts
     board.drop_piece(column, "X")
-    #binding.pry
     board.print_board
     if
     board.check_win_horizontal(column, "X") ||
@@ -33,7 +36,7 @@ while input != "q"
     elsif board.check_full
       puts "\nSTALEMATE!"
     else
-      puts "\nPlayer 2, please select a column (1-7):"
+      puts "\nPlayer 2, please select a column (1-#{c}):"
       column = gets.chomp.to_i
       while board.check_valid_selection(column) == false
         puts "Can't do that. Please select a valid column:"
@@ -42,7 +45,6 @@ while input != "q"
       puts
       board.check_valid_selection(column)
       board.drop_piece(column, "O")
-      #binding.pry
       board.print_board
       if
       board.check_win_horizontal(column, "O")  ||

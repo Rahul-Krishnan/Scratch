@@ -1,4 +1,3 @@
-require 'pry'
 require './board.rb'
 
 puts "*"*30
@@ -22,7 +21,6 @@ while input != "q"
     end
     puts
     board.drop_piece(column, "X")
-    #binding.pry
     board.print_board
     if
     board.check_win_horizontal(column, "X") ||
@@ -42,7 +40,7 @@ while input != "q"
       puts
       board.check_valid_selection(column)
       board.drop_piece(column, "O")
-      #binding.pry
+
       board.print_board
       if
       board.check_win_horizontal(column, "O")  ||

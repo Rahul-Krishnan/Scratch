@@ -1,16 +1,19 @@
 class Board
-  attr_accessor :layout, :win_state, :rownum
+  attr_accessor :layout, :win_state, :rownum, :rows, :columns, :win_length
 
-  def initialize
+  def initialize(rows, columns, win_length)
     @layout = []
     @win_state = false
     @rownum = rownum
+    @rows = rows
+    @columns = columns
+    @win_length = win_length
   end
 
   def create_board
-    6.times do
+    @rows.times do
       row = []
-      7.times do
+      @columns.times do
         row << "_"
       end
       @layout << row
@@ -18,11 +21,11 @@ class Board
   end
 
   def print_board
-    (1..7).to_a.each do |n|
+    (1..@columns).to_a.each do |n|
       print " #{n}"
     end
     puts
-    7.times do
+    @columns.times do
       print " V"
     end
     puts
@@ -35,7 +38,7 @@ class Board
   end
 
   def check_valid_selection column
-    if (1..7).include?(column) && @layout[0][column-1] == "_"
+    if (1..@columns).include?(column) && @layout[0][column-1] == "_"
       true
     else
       false
@@ -43,7 +46,7 @@ class Board
   end
 
   def drop_piece column, symbol
-    (0..5).to_a.reverse.each do |row|
+    (0..(@rows-1)).to_a.reverse.each do |row|
       if @layout[row][column-1] == "_"
         @layout[row][column-1] = symbol
         @rownum = row
@@ -55,7 +58,7 @@ class Board
 
   def check_full
     count = 0
-    (0..6).to_a.each do |n|
+    (0..(@columns-1)).to_a.each do |n|
       if @layout[0][n] == "_"
         count +=1
       else
@@ -71,7 +74,7 @@ class Board
 
   def check_win_horizontal column, symbol
     length = 1
-    (column..6).to_a.each do |n|
+    (column..(@columns-1)).to_a.each do |n|
       if @layout[@rownum][n] == symbol
         length +=1
       else
@@ -85,7 +88,7 @@ class Board
         break
       end
     end
-    if length >= 4
+    if length >= @win_length
       true
       @win_state = true
     else
@@ -95,14 +98,14 @@ class Board
 
   def check_win_vertical column, symbol
     length = 0
-    (@rownum..5).to_a.each do |n|
+    (@rownum..(@rows-1)).to_a.each do |n|
       if @layout[n][column-1] == symbol
         length +=1
       else
         break
       end
     end
-    if length >= 4
+    if length >= @win_length
       true
       @win_state = true
     else
@@ -112,7 +115,7 @@ class Board
 
   def check_win_diag_up_right column, symbol
     length = 1
-    max_dist_up = [7-column, @rownum].min
+    max_dist_up = [@columns-column, @rownum].min
     if max_dist_up == 0
     else
       (1..max_dist_up).to_a.each do |n|
@@ -123,7 +126,7 @@ class Board
         end
       end
     end
-    max_dist_down = [column-1, 5-@rownum].min
+    max_dist_down = [column-1, @rows-1-@rownum].min
     if max_dist_down == 0
     else
       (1..max_dist_down).to_a.each do |n|
@@ -134,7 +137,7 @@ class Board
         end
       end
     end
-    if length >= 4
+    if length >= @win_length
       true
       @win_state = true
     else
@@ -155,7 +158,7 @@ class Board
         end
       end
     end
-    max_dist_down = [7-column, 5-@rownum].min
+    max_dist_down = [@columns-column, @rows-1-@rownum].min
     if max_dist_down == 0
     else
       (1..max_dist_down).to_a.each do |n|
@@ -166,7 +169,7 @@ class Board
         end
       end
     end
-    if length >= 4
+    if length >= win_length
       true
       @win_state = true
     else
