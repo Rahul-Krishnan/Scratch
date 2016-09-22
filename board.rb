@@ -63,6 +63,7 @@ class Board
     end
     if count == 0
       true
+      @win_state = true
     else
       false
     end
