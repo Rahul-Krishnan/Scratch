@@ -27,11 +27,7 @@ while input != "q"
     puts
     board.drop_piece(column, "X")
     board.print_board
-    if
-    board.check_win_horizontal(column, "X") ||
-    board.check_win_vertical(column, "X") ||
-    board.check_win_diag_up_right(column, "X") ||
-    board.check_win_diag_up_left(column, "X")
+    if board.check_win_all(column, "X")
       puts "\nPlayer 1 WINS!"
     elsif board.check_full
       puts "\nSTALEMATE!"
@@ -46,11 +42,7 @@ while input != "q"
       board.check_valid_selection(column)
       board.drop_piece(column, "O")
       board.print_board
-      if
-      board.check_win_horizontal(column, "O")  ||
-      board.check_win_vertical(column, "O") ||
-      board.check_win_diag_up_right(column, "O") ||
-      board.check_win_diag_up_left(column, "O")
+      if board.check_win_all(column, "O")
         puts "\nPlayer 2 WINS!"
       elsif board.check_full
         puts "\nSTALEMATE!"

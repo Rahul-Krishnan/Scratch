@@ -72,6 +72,12 @@ class Board
     end
   end
 
+  def check_win_all column, symbol
+    check_win_horizontal(column, symbol) ||
+    check_win_vertical(column, symbol) ||
+    check_win_diag_up_right(column, symbol) ||
+    check_win_diag_up_left(column, symbol)
+  end
 
   def check_win_horizontal column, symbol
     length = 1
