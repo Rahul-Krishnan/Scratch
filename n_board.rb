@@ -172,7 +172,7 @@ class Board
         end
       end
     end
-    if length >= win_length
+    if length >= @win_length
       true
       @win_state = true
     else
