@@ -21,6 +21,7 @@ class Board
   end
 
   def print_board
+    system "clear"
     (1..@columns).each do |n|
       print " #{n}"
     end
