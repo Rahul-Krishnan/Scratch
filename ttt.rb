@@ -42,11 +42,11 @@ class Board
   def move(position, player)
     if check_move(position) == true
       @board.each do |row|
-        row.each do |column|
-          if position == column && player == "Player1"
-            row[column] = "X"
-          elsif position == column && player == "Player2"
-            row[column] = "O"
+        row.each_index do |column|
+          if position == row[column-1] && player == "Player1"
+            row[column-1] = "X"
+          elsif position == row[column-1] && player == "Player2"
+            row[column-1] = "O"
           end
         end
       end
@@ -105,18 +105,17 @@ while true
   puts "Which position would you like to mark Player 1?"
   position = gets.chomp.to_i
 
-  board.check_move(position)
   board.move(position, "Player1")
+  #binding.pry
   break if board.winning?
 
   board.display_board
 
   puts "Which position would you like to mark Player 2?"
   position = gets.chomp.to_i
-  board.check_move(position)
-  board.move(position, "Player2")
 
-  binding.pry
+  board.move(position, "Player2")
+  #binding.pry
   break if board.winning?
   board.display_board
 

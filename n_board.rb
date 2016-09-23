@@ -38,11 +38,7 @@ class Board
   end
 
   def check_valid_selection column
-    if (1..@columns).include?(column) && @layout[0][column-1] == "_"
-      true
-    else
-      false
-    end
+    (1..@columns).include?(column) && @layout[0][column-1] == "_"
   end
 
   def drop_piece column, symbol
