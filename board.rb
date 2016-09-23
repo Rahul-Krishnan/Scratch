@@ -18,7 +18,7 @@ class Board
   end
 
   def print_board
-    (1..7).to_a.each do |n|
+    (1..7).each do |n|
       print " #{n}"
     end
     puts
@@ -51,7 +51,7 @@ class Board
 
   def check_full
     count = 0
-    (0..6).to_a.each do |n|
+    (0..6).each do |n|
       if @layout[0][n] == "_"
         count +=1
       else
@@ -74,7 +74,7 @@ class Board
 
   def check_win_horizontal column, symbol
     length = 1
-    (column..6).to_a.each do |n|
+    (column..6).each do |n|
       if @layout[@rownum][n] == symbol
         length +=1
       else
@@ -98,7 +98,7 @@ class Board
 
   def check_win_vertical column, symbol
     length = 0
-    (@rownum..5).to_a.each do |n|
+    (@rownum..5).each do |n|
       if @layout[n][column-1] == symbol
         length +=1
       else
@@ -118,7 +118,7 @@ class Board
     max_dist_up = [7-column, @rownum].min
     if max_dist_up == 0
     else
-      (1..max_dist_up).to_a.each do |n|
+      (1..max_dist_up).each do |n|
         if @layout[@rownum-n][column-1+n] == symbol
           length +=1
         else
@@ -129,7 +129,7 @@ class Board
     max_dist_down = [column-1, 5-@rownum].min
     if max_dist_down == 0
     else
-      (1..max_dist_down).to_a.each do |n|
+      (1..max_dist_down).each do |n|
         if @layout[@rownum+n][column-1-n] == symbol
           length +=1
         else
@@ -161,7 +161,7 @@ class Board
     max_dist_down = [7-column, 5-@rownum].min
     if max_dist_down == 0
     else
-      (1..max_dist_down).to_a.each do |n|
+      (1..max_dist_down).each do |n|
         if @layout[@rownum+n][column-1+n] == symbol
           length +=1
         else
