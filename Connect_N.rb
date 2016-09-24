@@ -13,6 +13,12 @@ while input != "q"
   columns = gets.chomp.to_i
   puts "How many pieces in a row to win?"
   win_length = gets.chomp.to_i
+  max_length = [rows, columns].max
+  while win_length > max_length
+    puts "Max win length is #{max_length}! How many pieces in a row to win?"
+    win_length = gets.chomp.to_i
+  end
+
   board = Board.new(rows, columns, win_length)
   board.create_board
   board.print_board
