@@ -1,5 +1,6 @@
 require './board.rb'
 
+system "clear"
 puts "*"*30
 puts "Welcome to Connect Four(TM)"
 puts "*"*30

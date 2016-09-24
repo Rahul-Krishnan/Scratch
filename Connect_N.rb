@@ -1,5 +1,6 @@
 require './n_board.rb'
 
+system "clear"
 puts "*"*25
 puts "Welcome to Connect-N"
 puts "*"*25
@@ -7,18 +8,18 @@ puts "\nPress Q to Quit or any other key to continue:"
 input = gets.chomp.downcase
 while input != "q"
   puts "How many rows on the board?"
-  r = gets.chomp.to_i
+  rows = gets.chomp.to_i
   puts "How many columns on the board?"
-  c = gets.chomp.to_i
+  columns = gets.chomp.to_i
   puts "How many pieces in a row to win?"
-  w = gets.chomp.to_i
-  board = Board.new(r, c, w)
+  win_length = gets.chomp.to_i
+  board = Board.new(rows, columns, win_length)
   board.create_board
   board.print_board
 
   while board.win_state == false
 
-    puts "\nPlayer 1, please select a column (1-#{c}):"
+    puts "\nPlayer 1, please select a column (1-#{columns}):"
     column = gets.chomp.to_i
     while board.check_valid_selection(column) == false
       puts "Can't do that. Please select a valid column:"
@@ -32,7 +33,7 @@ while input != "q"
     elsif board.check_full
       puts "\nSTALEMATE!"
     else
-      puts "\nPlayer 2, please select a column (1-#{c}):"
+      puts "\nPlayer 2, please select a column (1-#{columns}):"
       column = gets.chomp.to_i
       while board.check_valid_selection(column) == false
         puts "Can't do that. Please select a valid column:"
