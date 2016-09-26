@@ -1,5 +1,6 @@
 class Board
-  attr_accessor :layout, :win_state, :rownum, :rows, :columns, :win_length
+  attr_accessor :layout, :win_state, :rows, :columns, :win_length
+  attr_reader :rownum
 
   def initialize(rows, columns, win_length)
     @layout = []
