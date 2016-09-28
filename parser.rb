@@ -16,7 +16,7 @@ while quit != "q"
   else
     page_url = "http://#{page_url}"
   end
-
+#begin and rescue for errors
   page = Nokogiri::HTML(open(page_url))
   links = page.css("a")
   puts "There are #{links.length} links on that page."
