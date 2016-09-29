@@ -1,3 +1,10 @@
+require 'pry'
+require 'rubygems'
+require 'nokogiri'
+require 'open-uri'
+require 'httparty'
+
+
 class Polls
 #a sorted hash for all the polls
 #a sorted hash for state electoral college votes
