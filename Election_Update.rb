@@ -3,9 +3,10 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'httparty'
+require './poll_eater.rb'
 
 
-class Polls
+class Poop
 #a sorted hash for all the polls
 #a sorted hash for state electoral college votes
 #a swing state hash
@@ -16,59 +17,31 @@ class Polls
 #a method to pull in polling data
 end
 
-poll_list =JSON.parse(HTTParty.get("http://elections.huffingtonpost.com/pollster/api/polls.json?after=2016-09-22&topic=2016-president&state=US").body)[0]["questions"]
+puts "Enter State:"
+state = gets.chomp
 
-clinton_scores = []
-trump_scores = []
-johnson_scores = []
-stein_scores = []
-undecided_scores = []
-results = []
+puts "Enter start date (YYYY-MM-DD):"
+date = gets.chomp
 
-poll_list.each do |item|
-  if item["name"].include?("Clinton")
-    puts item["name"]
-    pres_polls = item["subpopulations"][0]["responses"]
-    results << pres_polls
-  else
-  end
-end
-
-results.each do |poll|
-  poll.each do |entry|
-    if entry["choice"].include?("Clinton")
-      clinton_scores << entry["value"]
-    elsif entry["choice"].include?("Trump")
-      trump_scores << entry["value"]
-    elsif entry["choice"].include?("Johnson")
-      johnson_scores << entry["value"]
-    elsif entry["choice"].include?("Stein")
-      stein_scores << entry["value"]
-    elsif entry["choice"].include?("Undecided")
-      undecided_scores << entry["value"]
-    else
-    end
-  end
-end
+polls = Polls.new(state,date)
+polls.eat_polls
+polls.calc_averages
 #binding.pry
 
-puts "Clinton 7-day average:"
-puts clinton_scores.reduce(:+)/clinton_scores.count
+puts "Clinton average since #{date}:"
+puts polls.averages["clinton"]
 puts
-puts "Trump 7-day average:"
-puts trump_scores.reduce(:+)/trump_scores.count
+puts "Trump average since #{date}:"
+puts polls.averages["trump"]
 puts
-puts "Johnson 7-day average:"
-puts johnson_scores.reduce(:+)/johnson_scores.count
+puts "Johnson average since #{date}:"
+puts polls.averages["johnson"]
 puts
-puts "Stein 7-day average:"
-puts stein_scores.reduce(:+)/stein_scores.count
+puts "Stein average since #{date}:"
+puts polls.averages["stein"]
 puts
-puts "Undecided 7-day average:"
-puts undecided_scores.reduce(:+)/undecided_scores.count unless undecided_scores.count==0
-
-
-
+puts "Undecided average since #{date}:"
+puts polls.averages["undecided"]
 
 #Take in latest Pollster polling averages
 #Ask for max spread for a swing state
