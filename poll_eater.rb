@@ -6,11 +6,11 @@ require 'httparty'
 
 class Polls
 
-  attr_accessor :state, :after_date, :scores, :results, :averages
+  attr_accessor :state, :after_date, :scores, :results, :averages, :poll_list
 
   def initialize state, after_date
-    @state = "US"
-    @after_date = "2016-09-22"
+    @state = state
+    @after_date = after_date
     @scores = {
       "clinton" => [],
       "trump" => [],
@@ -26,34 +26,44 @@ class Polls
       "stein" => 0,
       "undecided" => 0
     }
+    @poll_list = []
   end
 
   def eat_polls
-    poll_list =JSON.parse(HTTParty.get("http://elections.huffingtonpost.com/pollster/api/polls.json?after=#{@after_date}&topic=2016-president&state=#{@state}").body)[0]["questions"]
-    poll_list.each do |item|
-      if item["name"].include?("Clinton")&&item["name"].include?("Trump")
-        #puts item["name"]
-        #binding.pry
-        pres_polls = item["subpopulations"][0]["responses"]
-        @results << pres_polls
-      else
-      end
-      #puts
+    (1..10).each do |n|
+      eat_page(n)
     end
+  end
 
-    @results.each do |poll|
-      poll.each do |entry|
-        if entry["choice"].include?("Clinton")
-          @scores["clinton"] << entry["value"]
-        elsif entry["choice"].include?("Trump")
-          @scores["trump"] << entry["value"]
-        elsif entry["choice"].include?("Johnson")
-          @scores["johnson"] << entry["value"]
-        elsif entry["choice"].include?("Stein")
-          @scores["stein"] << entry["value"]
-        elsif entry["choice"].include?("Undecided")
-          @scores["undecided"] << entry["value"]
+  def eat_page(page)
+    json =JSON.parse(HTTParty.get("http://elections.huffingtonpost.com/pollster/api/polls.json?page=#{page}&after=#{@after_date}&topic=2016-president&state=#{@state}").body)
+    if json == []
+    else
+      @poll_list = json[0]["questions"]
+      @poll_list.each do |item|
+        if item["code"].include?("Clinton")&&item["code"].include?("Trump")
+          #puts item["name"]
+          #binding.pry
+          pres_polls = item["subpopulations"][0]["responses"]
+          @results << pres_polls
         else
+        end
+        #puts
+      end
+      @results.each do |poll|
+        poll.each do |entry|
+          if entry["choice"].include?("Clinton")
+            @scores["clinton"] << entry["value"]
+          elsif entry["choice"].include?("Trump")
+            @scores["trump"] << entry["value"]
+          elsif entry["choice"].include?("Johnson")
+            @scores["johnson"] << entry["value"]
+          elsif entry["choice"].include?("Stein")
+            @scores["stein"] << entry["value"]
+          elsif entry["choice"].include?("Undecided")
+            @scores["undecided"] << entry["value"]
+          else
+          end
         end
       end
     end

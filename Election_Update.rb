@@ -3,6 +3,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'httparty'
+require 'date'
 require './poll_eater.rb'
 
 
@@ -20,27 +21,29 @@ end
 puts "Enter State:"
 state = gets.chomp
 
-puts "Enter start date (YYYY-MM-DD):"
-date = gets.chomp
+puts "Enter max poll age (days)"
+days = gets.chomp.to_i
+date = (Date.today-days).to_s
+
 
 polls = Polls.new(state,date)
 polls.eat_polls
 polls.calc_averages
 #binding.pry
 
-puts "Clinton average since #{date}:"
+puts "Clinton average in polls ending after #{date}:"
 puts polls.averages["clinton"]
 puts
-puts "Trump average since #{date}:"
+puts "Trump average in polls ending after #{date}:"
 puts polls.averages["trump"]
 puts
-puts "Johnson average since #{date}:"
+puts "Johnson average in polls ending after #{date}:"
 puts polls.averages["johnson"]
 puts
-puts "Stein average since #{date}:"
+puts "Stein average in polls ending after #{date}:"
 puts polls.averages["stein"]
 puts
-puts "Undecided average since #{date}:"
+puts "Undecided average in polls ending after #{date}:"
 puts polls.averages["undecided"]
 
 #Take in latest Pollster polling averages
