@@ -6,66 +6,63 @@ require 'httparty'
 require 'date'
 require './pollster_eater.rb'
 require './princeton_eater.rb'
+require './rcp_eater.rb'
+require './states.rb'
 
-
-class Poop
-#a sorted hash for all the polls
-#a sorted hash for state electoral college votes
-#a swing state hash
+class National
 #a national polls hash
-#a display method
-#a method to count paths to 270
-#a method to find must-win states
-#a method to pull in polling data
 end
 
-puts "Enter State:"
-state = gets.chomp.upcase
+puts "Choose source for polling data:\n1. Pollster.com\n2. Princeton Election Consortium\n3. RealClearPolitics"
+poll_source = gets.chomp
 
-puts "Enter max poll age (days)"
-days = gets.chomp.to_i
-date = (Date.today-days).to_s
+puts "Enter max spread for a swing state:"
+spread = gets.chomp
 
-
-pollster_polls = Pollster::Polls.new(state, date)
-pollster_polls.eat_polls
-
-princeton_polls = Princeton::Polls.new(state, date)
-princeton_polls.eat_polls
+state_polls = States.new
 #binding.pry
+state_polls.fill_polls(poll_source)
+state_polls.check_swing_states(spread)
+
+date = (Date.today-7)
 
 
-puts "*****Pollster.com results*****"
-puts "Clinton average in polls ending after #{date}:"
-puts pollster_polls.averages["clinton"].round(1)
-puts
-puts "Trump average in polls ending after #{date}:"
-puts pollster_polls.averages["trump"].round(1)
-puts
-puts "Johnson average in polls ending after #{date}:"
-puts pollster_polls.averages["johnson"].round(1)
-puts
-puts "Stein average in polls ending after #{date}:"
-puts pollster_polls.averages["stein"].round(1)
-puts
-puts "Undecided average in polls ending after #{date}:"
-puts pollster_polls.averages["undecided"].round(1)
-puts
-puts "*****Princeton results*****"
-puts "Clinton average in polls ending after #{date}:"
-puts princeton_polls.averages["clinton"].round(1)
-puts
-puts "Trump average in polls ending after #{date}:"
-puts princeton_polls.averages["trump"].round(1)
-puts
-puts "Other average in polls ending after #{date}:"
-puts princeton_polls.averages["other"].round(1)
-puts
-puts "Undecided average in polls ending after #{date}:"
-puts princeton_polls.averages["undecided"].round(1)
-puts
 
-#binding.pry
+system "clear"
+puts "Here are ther swing states:"
+puts state_polls.swing_states
+#
+# puts "*****Pollster.com results*****"
+# puts "Clinton average in polls ending after #{date}:"
+# puts pollster_polls.averages["clinton"].round(1)
+# puts
+# puts "Trump average in polls ending after #{date}:"
+# puts pollster_polls.averages["trump"].round(1)
+# puts
+# puts "Johnson average in polls ending after #{date}:"
+# puts pollster_polls.averages["johnson"].round(1)
+# puts
+# puts "Stein average in polls ending after #{date}:"
+# puts pollster_polls.averages["stein"].round(1)
+# puts
+# puts "Undecided average in polls ending after #{date}:"
+# puts pollster_polls.averages["undecided"].round(1)
+# puts
+# puts "*****Princeton results*****"
+# puts "Clinton average in polls ending after #{date}:"
+# puts princeton_polls.averages["clinton"].round(1)
+# puts
+# puts "Trump average in polls ending after #{date}:"
+# puts princeton_polls.averages["trump"].round(1)
+# puts
+# puts "Other average in polls ending after #{date}:"
+# puts princeton_polls.averages["other"].round(1)
+# puts
+# puts "Undecided average in polls ending after #{date}:"
+# puts princeton_polls.averages["undecided"].round(1)
+# puts
+#
+binding.pry
 
 #Take in latest Pollster/Princeton/RCP polling averages
 #Ask for max spread for a swing state
