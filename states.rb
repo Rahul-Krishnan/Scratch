@@ -10,7 +10,7 @@ require './rcp_eater.rb'
 
 class States
 
-  attr_accessor :polls, :swing_states
+  attr_accessor :polls, :swing_states, :clinton_states, :trump_states, :swing_votes, :clinton_votes, :trump_votes
 
   def initialize
     @polls = {
@@ -66,6 +66,11 @@ class States
       "WY" => [3, 40, 60]
       }
     @swing_states = []
+    @clinton_states = []
+    @trump_states = []
+    @clinton_votes = 0
+    @trump_votes = 0
+    @swing_votes = 0
   end
 #a sorted hash for all the polls
 #a sorted hash for state electoral college votes
@@ -77,38 +82,57 @@ class States
 
   def check_swing_states(spread)
     @polls.each do |state, row|
-      row[3] = (row[2] - row[1]).abs
-      if row[3] < spread.to_f
-        @swing_states << state
+      row[3] = row[1] - row[2]
+      if row[3].abs < spread.to_f
+        @swing_states << [state, row[3]]
+      elsif row[3] > 0
+        @clinton_states << [state, row[1]]
       else
+        @trump_states << [state, row[2]]
       end
+    end
+    @swing_states.sort! {|a,b| a[1].abs <=> b[1].abs}
+  end
+
+  def count_electoral_college
+    @swing_states.each do |row|
+      @swing_votes += @polls[row[0]][0]
+    end
+    @clinton_states.each do |row|
+      @clinton_votes += @polls[row[0]][0]
+    end
+    @trump_states.each do |row|
+      @trump_votes += @polls[row[0]][0]
     end
   end
 
-  def fill_polls(poll_source)
-    date = (Date.today-7).to_s
-      if poll_source == 1
-        @polls.keys.each do |state|
-          polls = Pollster::Polls.new(state, date)
-          polls.eat_polls
-          @polls[state][1] = polls.averages["clinton"]
-          @polls[state][2] = polls.averages["trump"]
-        end
-      elsif poll_source == 2
-        @polls.keys.each do |state|
-          polls = Princeton::Polls.new(state, date)
-          polls.eat_polls
-          @polls[state][1] = polls.averages["clinton"]
-          @polls[state][2] = polls.averages["trump"]
-        end
-      elsif poll_source == 3
-        @polls.keys.each do |state|
-          polls = RCP::Polls.new(state, date)
-          polls.eat_polls
-          @polls[state][1] = polls.averages["clinton"]
-          @polls[state][2] = polls.averages["trump"]
-        end
-      else
+  def fill_polls(poll_source, days)
+    date = (Date.today-days).to_s
+    if poll_source == "1"
+      @polls.keys.each do |state|
+        polls_holder = Pollster::Polls.new(state, date)
+        polls_holder.eat_polls
+        #binding.pry
+        @polls[state][1] = polls_holder.averages["clinton"]
+        @polls[state][2] = polls_holder.averages["trump"]
       end
+    elsif poll_source == "2"
+      @polls.keys.each do |state|
+        polls_holder = Princeton::Polls.new(state, date)
+        polls_holder.eat_polls
+        #binding.pry
+        @polls[state][1] = polls_holder.averages["clinton"]
+        @polls[state][2] = polls_holder.averages["trump"]
+      end
+    elsif poll_source == "3"
+      @polls.keys.each do |state|
+        polls_holder = RCP::Polls.new(state, date)
+        polls_holder.eat_polls
+        #binding.pry
+        @polls[state][1] = polls_holder.averages["clinton"]
+        @polls[state][2] = polls_holder.averages["trump"]
+      end
+    else
+    end
   end
 end
