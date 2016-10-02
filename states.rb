@@ -107,7 +107,7 @@ class States
     end
   end
 
-#methods to pull in polling data
+#method to pull in polling data
   def fill_polls(poll_source, days)
     date = (Date.today-days).to_s
     if poll_source == "1"

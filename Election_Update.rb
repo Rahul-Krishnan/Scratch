@@ -17,6 +17,7 @@ while quit != "q"
   days = gets.chomp.to_i
 
   puts "\nPlease wait..."
+  puts "\nThis could take a minute..."
   state_polls = States.new
   #binding.pry
   state_polls.fill_polls(poll_source, days)
@@ -25,6 +26,11 @@ while quit != "q"
 
   #Output all swing states with current average spread
   system "clear"
+  case poll_source
+  when "1" then puts "\nPolls source: Pollster.com"
+  when "2" then puts "\nPolls source: Princeton Election Consortium"
+  when "3" then puts "\nPolls source: RealClearPolitics"
+  end
   puts "\nCurrent Electoral College Breakdown:"
   puts "\nClinton: #{state_polls.clinton_votes}\t(Need #{270-state_polls.clinton_votes} more to win)"
   state_polls.clinton_states.each do |row|
@@ -39,7 +45,7 @@ while quit != "q"
     print "#{row[0]}(#{state_polls.polls[row[0]][0]}) "
   end
 
-  puts "\n\n\nHere are the the current swing state spreads:\n\n"
+  puts "\n\nHere are the the current swing state spreads:"
   state_polls.swing_states.each do |entry|
     if entry[1] >= 0
       puts "#{entry[0]}\tC +#{entry[1].round(1)}"
@@ -48,13 +54,12 @@ while quit != "q"
     else
     end
   end
-
-  puts "\n\nPress Q to quit or any other key to continue..."
+  #binding.pry
+  puts "\nPress Q to quit or any other key to continue..."
   quit = gets.chomp.downcase
 end
   #binding.pry
 
   #Display any must-win states for each candidate
   #Display national spread
-
-  #show date of last poll for each entry
+  #Deal with errors when very few polls available
