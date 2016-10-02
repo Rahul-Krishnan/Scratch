@@ -1,14 +1,15 @@
 require 'pry'
 require 'rubygems'
-require 'nokogiri'
-require 'open-uri'
-require 'httparty'
 require 'date'
 require './pollster_eater.rb'
 require './princeton_eater.rb'
 require './rcp_eater.rb'
 
 class States
+
+#a hash for all the polls and EC votes
+#a sorted array for swing state electoral college votes
+#swing, clinton and trump state arrays
 
   attr_accessor :polls, :swing_states, :clinton_states, :trump_states, :swing_votes, :clinton_votes, :trump_votes
 
@@ -72,14 +73,11 @@ class States
     @trump_votes = 0
     @swing_votes = 0
   end
-#a sorted hash for all the polls
-#a sorted hash for state electoral college votes
-#a swing state hash
-#a display method
+
 #a method to count paths to 270
 #a method to find must-win states
-#a method to pull in polling data
 
+#method to find swing states and margins
   def check_swing_states(spread)
     @polls.each do |state, row|
       row[3] = row[1] - row[2]
@@ -92,8 +90,11 @@ class States
       end
     end
     @swing_states.sort! {|a,b| a[1].abs <=> b[1].abs}
+    @clinton_states.sort! {|a,b| a[1].abs <=> b[1].abs}
+    @trump_states.sort! {|a,b| a[1].abs <=> b[1].abs}
   end
 
+#method to add up electoral college votes
   def count_electoral_college
     @swing_states.each do |row|
       @swing_votes += @polls[row[0]][0]
@@ -106,6 +107,7 @@ class States
     end
   end
 
+#methods to pull in polling data
   def fill_polls(poll_source, days)
     date = (Date.today-days).to_s
     if poll_source == "1"
