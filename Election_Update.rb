@@ -45,7 +45,7 @@ while quit != "q"
     print "#{row[0]}(#{state_polls.polls[row[0]][0]}) "
   end
 
-  puts "\n\nHere are the the current swing state spreads:"
+  puts "\n\nHere are the the current swing state spreads (0.0 indicates no polls available):"
   state_polls.swing_states.each do |entry|
     if entry[1] >= 0
       puts "#{entry[0]}\tC +#{entry[1].round(1)}"
@@ -62,4 +62,3 @@ end
 
   #Display any must-win states for each candidate
   #Display national spread
-  #Deal with errors when very few polls available
