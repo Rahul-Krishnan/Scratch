@@ -70,6 +70,5 @@ while quit != "q"
 end
   #binding.pry
 
-  #Create rcp eater
   #Display any must-win states for each candidate
   #Display national spread
