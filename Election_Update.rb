@@ -6,15 +6,24 @@ quit = false
 while quit != "q"
   system "clear"
   #Take in latest Pollster/Princeton/RCP polling averages
+
+  poll_source = 0
+  while !(["1","2","3"].include?(poll_source))
+    puts "\nPlease select source for polling data:\n\n1 => Pollster.com\n2 => Princeton Election Consortium\n3 => RealClearPolitics\n\nPress 1, 2 or 3:"
+    poll_source = gets.chomp
+  end
   #Ask for max spread for a swing state and max age of polls
-  puts "\nPlease select source for polling data:\n\n1 => Pollster.com\n2 => Princeton Election Consortium\n3 => RealClearPolitics\n\nPress 1, 2 or 3:"
-  poll_source = gets.chomp
+  spread = 0
+  while !((1..100).include?(spread))
+    puts "\nMinimum point spread for \"safe\" Clinton or Trump states:"
+    spread = gets.chomp.to_i
+  end
 
-  puts "\nMinimum point spread for \"safe\" Clinton or Trump states:"
-  spread = gets.chomp
-
-  puts "\nMax poll age (days):"
-  days = gets.chomp.to_i
+  days = 0
+  while !((1..90).include?(days))
+    puts "\nMax poll age (days):"
+    days = gets.chomp.to_i
+  end
 
   puts "\nPlease wait..."
   puts "\nThis could take a minute..."
@@ -24,7 +33,7 @@ while quit != "q"
   state_polls.check_swing_states(spread)
   state_polls.count_electoral_college
 
-  #Output all swing states with current average spread
+  #Output Electoral College Breakdown
   system "clear"
   case poll_source
   when "1" then puts "\nPolls source: Pollster.com; polls ending in the last #{days} days"
@@ -45,6 +54,7 @@ while quit != "q"
     print "#{row[0]}(#{state_polls.polls[row[0]][0]}) "
   end
 
+  #Output all swing states with current average spread
   puts "\n\nHere are the the current swing state spreads (0.0 indicates no polls available):"
   state_polls.swing_states.each do |entry|
     if entry[1] >= 0
