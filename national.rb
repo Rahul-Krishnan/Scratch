@@ -86,9 +86,17 @@ def run_national_polls
   puts "Undecided\t#{national_polls.averages["undecided"].round(1)}"
 
   puts "\n\n\nHere are the latest national major party poll numbers:\n\n"
-  puts "\tClinton\t\tTrump"
+  puts "\tClinton\t\tTrump\t\tLeader"
   (0..5).each do |n|
-    puts "\t #{national_polls.polls[n][0]}\t\t #{national_polls.polls[n][1]}"
+    clinton = national_polls.polls[n][0]
+    trump = national_polls.polls[n][1]
+    if clinton > trump
+      puts "\t #{clinton}\t\t #{trump}\t\tC +#{clinton - trump}"
+    elsif clinton < trump
+      puts "\t #{clinton}\t\t #{trump}\t\tT +#{trump - clinton}"
+    else
+      puts "\t #{clinton}\t\t #{trump}\t\t TIE"
+    end
   end
 
 end
