@@ -82,5 +82,84 @@ module Pollster
 end
 
 module NationalPollster
+  class Polls
 
+    attr_accessor :after_date, :scores, :results, :names, :averages, :poll_list
+
+    def initialize after_date
+      @after_date = after_date
+      @scores = {
+        "clinton" => [],
+        "trump" => [],
+        "johnson" => [],
+        "stein" => [],
+        "undecided" => []
+      }
+      @results = []
+      @names_master_list = []
+      @names = []
+      @averages = {
+        "clinton" => 0,
+        "trump" => 0,
+        "johnson" => 0,
+        "stein" => 0,
+        "undecided" => 0
+      }
+      @poll_list = []
+    end
+
+    def eat_polls
+      (1..30).each do |n|
+        eat_pollster_page(n)
+      end
+      calc_averages
+    end
+
+    def eat_pollster_page(page)
+      @poll_list =JSON.parse(HTTParty.get("http://elections.huffingtonpost.com/pollster/api/polls.json?page=#{page}&after=#{@after_date}&topic=2016-president&state=US").body)
+      if @poll_list == []
+      else
+        @poll_list.each do |entry|
+          @names_master_list << entry["pollster"]
+        end
+        #binding.pry
+        @poll_list.each_with_index do |item, index|
+          if item["questions"][0]["code"].include?("Clinton")&&item["questions"][0]["code"].include?("Trump")
+            #puts item["name"]
+            #binding.pry
+            pres_polls = item["questions"][0]["subpopulations"][0]["responses"]
+            @results << pres_polls
+            @names << @names_master_list[index]
+          else
+          end
+          #puts
+        end
+        @results.each do |poll|
+          poll.each do |entry|
+            if entry["choice"].include?("Clinton")
+              @scores["clinton"] << entry["value"]
+            elsif entry["choice"].include?("Trump")
+              @scores["trump"] << entry["value"]
+            elsif entry["choice"].include?("Johnson")
+              @scores["johnson"] << entry["value"]
+            elsif entry["choice"].include?("Stein")
+              @scores["stein"] << entry["value"]
+            elsif entry["choice"].include?("Undecided")
+              @scores["undecided"] << entry["value"]
+            else
+            end
+          end
+        end
+      end
+    end
+
+    def calc_averages
+      @averages["clinton"] = @scores["clinton"].reduce(:+)/@scores["clinton"].count unless @scores["clinton"].count == 0
+      @averages["trump"] = @scores["trump"].reduce(:+)/@scores["trump"].count unless @scores["trump"].count == 0
+      @averages["johnson"] = @scores["johnson"].reduce(:+)/@scores["johnson"].count unless @scores["johnson"].count == 0
+      @averages["stein"] = @scores["stein"].reduce(:+)/@scores["stein"].count unless @scores["stein"].count == 0
+      @averages["undecided"] = @scores["undecided"].reduce(:+)/@scores["undecided"].count unless @scores["undecided"].count == 0
+    end
+
+  end
 end

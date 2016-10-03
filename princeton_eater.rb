@@ -57,7 +57,3 @@ module Princeton
     end
   end
 end
-
-module NationalPrinceton
-
-end
