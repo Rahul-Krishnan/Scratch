@@ -80,3 +80,7 @@ module Pollster
 
   end
 end
+
+module NationalPollster
+
+end
