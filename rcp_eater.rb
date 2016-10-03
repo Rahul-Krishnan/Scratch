@@ -112,6 +112,7 @@ module NationalRCP
         "stein" => 0,
         "undecided" => 0
       }
+      names = []
     end
 
     def eat_polls

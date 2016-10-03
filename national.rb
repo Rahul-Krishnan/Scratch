@@ -71,7 +71,7 @@ def run_national_polls
   #binding.pry
   national_polls.fill_polls(poll_source, days)
 
-  #Output National Poll Averages and 5 Latest Polls with pollster names
+  #Output National Poll Averages and 5 Latest Polls
   system "clear"
   case poll_source
   when "1" then puts "\nPolls source: Pollster.com; polls ending in the last #{days} days"
@@ -87,7 +87,7 @@ def run_national_polls
 
   puts "\n\n\nHere are the latest national major party poll numbers:\n\n"
   puts "\tClinton\t\tTrump\t\tLeader"
-  (0..5).each do |n|
+  (0..4).each do |n|
     clinton = national_polls.polls[n][0]
     trump = national_polls.polls[n][1]
     if clinton > trump

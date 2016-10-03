@@ -30,7 +30,7 @@ module Pollster
     end
 
     def eat_polls
-      (1..30).each do |n|
+      (1..20).each do |n|
         eat_pollster_page(n)
       end
       calc_averages
@@ -109,7 +109,7 @@ module NationalPollster
     end
 
     def eat_polls
-      (1..30).each do |n|
+      (1..50).each do |n|
         eat_pollster_page(n)
       end
       calc_averages
