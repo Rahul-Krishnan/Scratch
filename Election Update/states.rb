@@ -182,11 +182,11 @@ def run_state_polls
   when "3" then puts "\nPolls source: Pollster.com; polls ending in the last #{days} days"
   end
   puts "\nCurrent Electoral College Breakdown:"
-  puts "\nClinton: #{state_polls.clinton_votes}\t(Need #{270-state_polls.clinton_votes} more to win)"
+  puts "\nClinton: #{state_polls.clinton_votes}\t(Needs #{270-state_polls.clinton_votes} more to win)"
   state_polls.clinton_states.each do |row|
     print "#{row[0]}(#{state_polls.polls[row[0]][0]}) "
   end
-  puts "\n\nTrump: #{state_polls.trump_votes}\t(Need #{270-state_polls.trump_votes} more to win)"
+  puts "\n\nTrump: #{state_polls.trump_votes}\t(Needs #{270-state_polls.trump_votes} more to win)"
   state_polls.trump_states.each do |row|
     print "#{row[0]}(#{state_polls.polls[row[0]][0]}) "
   end
