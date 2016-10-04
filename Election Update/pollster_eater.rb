@@ -152,7 +152,7 @@ module NationalPollster
       @averages["trump"] = @scores["trump"].reduce(:+)/@scores["trump"].count unless @scores["trump"].count == 0
       @averages["johnson"] = @scores["johnson"].reduce(:+)/@scores["johnson"].count unless @scores["johnson"].count == 0
       @averages["stein"] = @scores["stein"].reduce(:+)/@scores["stein"].count unless @scores["stein"].count == 0
-      @averages["undecided"] = @scores["undecided"].reduce(:+)/@scores["undecided"].count unless @scores["undecided"].count == 0
+      @averages["undecided"] = 100 - @averages["clinton"] - @averages["trump"] - @averages["johnson"] - @averages["stein"]
     end
 
   end

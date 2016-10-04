@@ -87,21 +87,21 @@ def run_national_polls
   end
 
   puts "\n\nCurrent National Averages:"
-  print "Leader"
+  print "\nLeader"
   clintonavg = national_polls.averages["clinton"]
   trumpavg = national_polls.averages["trump"]
   if clintonavg > trumpavg
-    puts "\t  *** C +#{(clintonavg - trumpavg).round(1)} ***"
+    puts "\t\t  *** C +#{(clintonavg - trumpavg).round(1)} ***"
   elsif clintonavg < trumpavg
-    puts "\t  *** T +#{(trumpavg - clintonavg).round(1)} ***"
+    puts "\t\t  *** T +#{(trumpavg - clintonavg).round(1)} ***"
   else
-    puts "\t  *** TIE ***"
+    puts "\t\t  *** TIE ***"
   end
-  puts "Clinton\t\t#{national_polls.averages["clinton"].round(1)}"
-  puts "Trump\t\t#{national_polls.averages["trump"].round(1)}"
-  puts "Johnson\t\t#{national_polls.averages["johnson"].round(1)}"
-  puts "Stein\t\t#{national_polls.averages["stein"].round(1)}"
-  puts "Undecided\t#{national_polls.averages["undecided"].round(1)}"
+  puts "\nClinton\t\t\t#{national_polls.averages["clinton"].round(1)}"
+  puts "Trump\t\t\t#{national_polls.averages["trump"].round(1)}"
+  puts "Johnson\t\t\t#{national_polls.averages["johnson"].round(1)}"
+  puts "Stein\t\t\t#{national_polls.averages["stein"].round(1)}"
+  puts "Other/Undecided\t\t#{national_polls.averages["undecided"].round(1)}"
 
   puts "\n\n\nHere are the latest national major party poll numbers:\n\n"
   puts "\tClinton\t\tTrump\t\tLeader\t\tPolling Company"
