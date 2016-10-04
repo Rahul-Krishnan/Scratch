@@ -6,7 +6,7 @@ require './princeton_eater.rb'
 require './rcp_eater.rb'
 
 class National
-#a national polls hash
+#a national polls array and averages hash
   attr_accessor :polls, :averages
 
   def initialize
@@ -80,7 +80,7 @@ def run_national_polls
 
   national_polls.fill_polls(poll_source, days)
 
-  #Output National Poll Averages and 5 Latest Polls
+  #Output National Poll Averages and 5 Latest Polls with pollster name
   system "clear"
   case poll_source
   when "1" then puts "\nPolls source: RealClearPolitics; polls ending in the past #{days} days"
