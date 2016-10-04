@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'pry'
 require './states.rb'
 require './national.rb'
