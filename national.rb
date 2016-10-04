@@ -18,32 +18,39 @@ class National
   def fill_polls(poll_source, days)
     date = (Date.today-days).to_s
     if poll_source == "1"
-        polls_holder = NationalPollster::Polls.new(date)
-        polls_holder.eat_polls
-        #binding.pry
-        if polls_holder.scores["clinton"] == []
-        else
-          @averages["clinton"] = polls_holder.averages["clinton"]
-          @averages["trump"] = polls_holder.averages["trump"]
-          @averages["johnson"] = polls_holder.averages["johnson"]
-          @averages["stein"] = polls_holder.averages["stein"]
-          @averages["undecided"] = polls_holder.averages["undecided"]
+      polls_holder = NationalPollster::Polls.new(date)
+      polls_holder.eat_polls
+      #binding.pry
+      if polls_holder.scores["clinton"] == []
+      else
+        @averages["clinton"] = polls_holder.averages["clinton"]
+        @averages["trump"] = polls_holder.averages["trump"]
+        @averages["johnson"] = polls_holder.averages["johnson"]
+        @averages["stein"] = polls_holder.averages["stein"]
+        @averages["undecided"] = polls_holder.averages["undecided"]
 
-          polls_holder.scores["clinton"].each_with_index do |score, index|
-            #binding.pry
-            trump_score = polls_holder.scores["trump"][index]
-            @polls << [score.round(1), trump_score.round(1)]
-          end
+        polls_holder.scores["clinton"].each_with_index do |score, index|
+          #binding.pry
+          trump_score = polls_holder.scores["trump"][index]
+          @polls << [score.round(1), trump_score.round(1)]
         end
+      end
     elsif poll_source == "2"
-      @polls.keys.each do |state|
-        polls_holder = NationalRCP::Polls.new(date)
-        polls_holder.eat_polls
-        #binding.pry
-        if polls_holder.scores["clinton"] == []
-        else
-        @polls[1] = polls_holder.averages["clinton"]
-        @polls[2] = polls_holder.averages["trump"]
+      polls_holder = NationalRCP::Polls.new(date)
+      polls_holder.eat_polls
+      #binding.pry
+      if polls_holder.scores["clinton"] == []
+      else
+        @averages["clinton"] = polls_holder.averages["clinton"]
+        @averages["trump"] = polls_holder.averages["trump"]
+        @averages["johnson"] = polls_holder.averages["johnson"]
+        @averages["stein"] = polls_holder.averages["stein"]
+        @averages["undecided"] = polls_holder.averages["undecided"]
+
+        polls_holder.scores["clinton"].each_with_index do |score, index|
+          #binding.pry
+          trump_score = polls_holder.scores["trump"][index]
+          @polls << [score.round(1), trump_score.round(1)]
         end
       end
     else
@@ -87,13 +94,15 @@ def run_national_polls
 
   puts "\n\n\nHere are the latest national major party poll numbers:\n\n"
   puts "\tClinton\t\tTrump\t\tLeader"
-  (0..4).each do |n|
+  #binding.pry
+  max = [5, national_polls.polls.count].min - 1
+  (0..max).each do |n|
     clinton = national_polls.polls[n][0]
     trump = national_polls.polls[n][1]
     if clinton > trump
-      puts "\t #{clinton}\t\t #{trump}\t\tC +#{clinton - trump}"
+      puts "\t #{clinton}\t\t #{trump}\t\tC +#{(clinton - trump).round(1)}"
     elsif clinton < trump
-      puts "\t #{clinton}\t\t #{trump}\t\tT +#{trump - clinton}"
+      puts "\t #{clinton}\t\t #{trump}\t\tT +#{(trump - clinton).round(1)}"
     else
       puts "\t #{clinton}\t\t #{trump}\t\t TIE"
     end
