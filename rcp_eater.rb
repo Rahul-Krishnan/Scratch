@@ -94,7 +94,7 @@ end
 module NationalRCP
   class Polls
 
-    attr_accessor :after_date, :scores, :results, :averages
+    attr_accessor :after_date, :scores, :results, :averages, :names
 
     def initialize after_date
       @after_date = Date.strptime(after_date, "%Y-%m-%d")
@@ -136,34 +136,39 @@ module NationalRCP
       end
 
       names_master_list = []
-      race_titles = table.css("td:nth-child(1)")
+      race_titles = table.css("td:nth-child(1) .normal_pollster_name")
       race_titles.each do |title|
         names_master_list << title.text
       end
+      names_master_list.shift
 
       clinton_scores_list = []
       clinton_scores_holder = table.css("td:nth-child(5)")
       clinton_scores_holder.each do |score|
         clinton_scores_list << score.text.to_f
       end
+      clinton_scores_list.shift
 
       trump_scores_list = []
       trump_scores_holder = table.css("td:nth-child(6)")
       trump_scores_holder.each do |score|
         trump_scores_list << score.text.to_f
       end
+      trump_scores_list.shift
 
       johnson_scores_list = []
       johnson_scores_holder = table.css("td:nth-child(7)")
       johnson_scores_holder.each do |score|
         johnson_scores_list << score.text.to_f
       end
+      johnson_scores_list.shift
 
       stein_scores_list = []
       stein_scores_holder = table.css("td:nth-child(8)")
       stein_scores_holder.each do |score|
         stein_scores_list << score.text.to_f
       end
+      stein_scores_list.shift
 
       dates.each_with_index do |date, index|
         if date > @after_date

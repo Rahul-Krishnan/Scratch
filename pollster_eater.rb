@@ -96,7 +96,6 @@ module NationalPollster
         "undecided" => []
       }
       @results = []
-      @names_master_list = []
       @names = []
       @averages = {
         "clinton" => 0,
@@ -109,7 +108,7 @@ module NationalPollster
     end
 
     def eat_polls
-      (1..50).each do |n|
+      (1..20).each do |n|
         eat_pollster_page(n)
       end
       calc_averages
@@ -119,20 +118,15 @@ module NationalPollster
       @poll_list =JSON.parse(HTTParty.get("http://elections.huffingtonpost.com/pollster/api/polls.json?page=#{page}&after=#{@after_date}&topic=2016-president&state=US").body)
       if @poll_list == []
       else
-        @poll_list.each do |entry|
-          @names_master_list << entry["pollster"]
-        end
         #binding.pry
         @poll_list.each_with_index do |item, index|
           if item["questions"][0]["code"].include?("Clinton")&&item["questions"][0]["code"].include?("Trump")
-            #puts item["name"]
             #binding.pry
             pres_polls = item["questions"][0]["subpopulations"][0]["responses"]
             @results << pres_polls
-            @names << @names_master_list[index]
+            @names << item["pollster"]
           else
           end
-          #puts
         end
         @results.each do |poll|
           poll.each do |entry|
