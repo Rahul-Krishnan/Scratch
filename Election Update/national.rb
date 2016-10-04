@@ -75,7 +75,6 @@ def run_national_polls
   end
 
   puts "\nPlease wait..."
-  puts "\nThis could take a minute..."
   national_polls = National.new
 
   national_polls.fill_polls(poll_source, days)
