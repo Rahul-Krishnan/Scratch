@@ -87,7 +87,17 @@ def run_national_polls
   when "2" then puts "\nPolls source: Pollster.com; polls ending in the last #{days} days"
   end
 
-  puts "\n\nCurrent National Averages:\n\n"
+  puts "\n\nCurrent National Averages:"
+  print "Leader"
+  clintonavg = national_polls.averages["clinton"]
+  trumpavg = national_polls.averages["trump"]
+  if clintonavg > trumpavg
+    puts "\t  *** C +#{(clintonavg - trumpavg).round(1)} ***"
+  elsif clintonavg < trumpavg
+    puts "\t  *** T +#{(trumpavg - clintonavg).round(1)} ***"
+  else
+    puts "\t  *** TIE ***"
+  end
   puts "Clinton\t\t#{national_polls.averages["clinton"].round(1)}"
   puts "Trump\t\t#{national_polls.averages["trump"].round(1)}"
   puts "Johnson\t\t#{national_polls.averages["johnson"].round(1)}"
