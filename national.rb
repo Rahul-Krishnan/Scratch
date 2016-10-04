@@ -20,7 +20,7 @@ class National
     if poll_source == "1"
       polls_holder = NationalRCP::Polls.new(date)
       polls_holder.eat_polls
-      #binding.pry
+
       if polls_holder.scores["clinton"] == []
       else
         @averages["clinton"] = polls_holder.averages["clinton"]
@@ -30,7 +30,7 @@ class National
         @averages["undecided"] = polls_holder.averages["undecided"]
 
         polls_holder.scores["clinton"].each_with_index do |score, index|
-          #binding.pry
+
           trump_score = polls_holder.scores["trump"][index]
           poll_name = polls_holder.names[index]
           @polls << [score.round(1), trump_score.round(1), poll_name]
@@ -39,7 +39,7 @@ class National
     elsif poll_source == "2"
       polls_holder = NationalPollster::Polls.new(date)
       polls_holder.eat_polls
-      #binding.pry
+
       if polls_holder.scores["clinton"] == []
       else
         @averages["clinton"] = polls_holder.averages["clinton"]
@@ -49,7 +49,7 @@ class National
         @averages["undecided"] = polls_holder.averages["undecided"]
 
         polls_holder.scores["clinton"].each_with_index do |score, index|
-          #binding.pry
+
           trump_score = polls_holder.scores["trump"][index]
           poll_name = polls_holder.names[index]
           @polls << [score.round(1), trump_score.round(1), poll_name]
@@ -77,7 +77,7 @@ def run_national_polls
   puts "\nPlease wait..."
   puts "\nThis could take a minute..."
   national_polls = National.new
-  #binding.pry
+
   national_polls.fill_polls(poll_source, days)
 
   #Output National Poll Averages and 5 Latest Polls
@@ -97,7 +97,7 @@ def run_national_polls
   puts "\n\n\nHere are the latest national major party poll numbers:\n\n"
   puts "\tClinton\t\tTrump\t\tLeader\t\tPolling Company"
   puts "\t-------\t\t------\t\t------\t\t---------------"
-  #binding.pry
+
   max = [5, national_polls.polls.count].min - 1
   (0..max).each do |n|
     clinton = national_polls.polls[n][0]

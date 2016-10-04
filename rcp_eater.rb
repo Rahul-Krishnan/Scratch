@@ -57,7 +57,7 @@ module RCP
         results << element.text.split(/, /)
       end
       n = dates.length-1
-      #binding.pry
+
       (0..n).each do |x|
         if (dates[x] > @after_date && races_title[x].include?(@state))
           results[x].each do |entry|
@@ -140,7 +140,6 @@ module NationalRCP
       race_titles.each do |title|
         names_master_list << title.text
       end
-      names_master_list.shift
 
       clinton_scores_list = []
       clinton_scores_holder = table.css("td:nth-child(5)")
@@ -180,7 +179,6 @@ module NationalRCP
         else
         end
       end
-      #binding.pry
       calc_averages
     end
 

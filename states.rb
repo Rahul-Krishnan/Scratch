@@ -112,7 +112,7 @@ class States
       @polls.keys.each do |state|
         polls_holder = Princeton::Polls.new(state, date)
         polls_holder.eat_polls
-        #binding.pry
+
         if polls_holder.scores["clinton"] == []
         else
         @polls[state][1] = polls_holder.averages["clinton"]
@@ -123,7 +123,7 @@ class States
       @polls.keys.each do |state|
         polls_holder = RCP::Polls.new(@polls[state][3], date)
         polls_holder.eat_polls
-        #binding.pry
+
         if polls_holder.scores["clinton"] == []
         else
         @polls[state][1] = polls_holder.averages["clinton"]
@@ -134,7 +134,7 @@ class States
       @polls.keys.each do |state|
         polls_holder = Pollster::Polls.new(state, date)
         polls_holder.eat_polls
-        #binding.pry
+
         if polls_holder.scores["clinton"] == []
         else
         @polls[state][1] = polls_holder.averages["clinton"]
@@ -169,7 +169,7 @@ def run_state_polls
   puts "\nPlease wait..."
   puts "\nThis could take a minute..."
   state_polls = States.new
-  #binding.pry
+
   state_polls.fill_polls(poll_source, days)
   state_polls.check_swing_states(spread)
   state_polls.count_electoral_college

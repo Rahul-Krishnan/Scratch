@@ -44,7 +44,7 @@ module Pollster
         @poll_list.each do |item|
           if item["code"].include?("Clinton")&&item["code"].include?("Trump")
             #puts item["name"]
-            #binding.pry
+
             pres_polls = item["subpopulations"][0]["responses"]
             @results << pres_polls
           else
@@ -118,10 +118,10 @@ module NationalPollster
       @poll_list =JSON.parse(HTTParty.get("http://elections.huffingtonpost.com/pollster/api/polls.json?page=#{page}&after=#{@after_date}&topic=2016-president&state=US").body)
       if @poll_list == []
       else
-        #binding.pry
+
         @poll_list.each_with_index do |item, index|
           if item["questions"][0]["code"].include?("Clinton")&&item["questions"][0]["code"].include?("Trump")
-            #binding.pry
+
             pres_polls = item["questions"][0]["subpopulations"][0]["responses"]
             @results << pres_polls
             @names << item["pollster"]
