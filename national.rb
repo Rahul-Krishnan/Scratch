@@ -96,6 +96,7 @@ def run_national_polls
 
   puts "\n\n\nHere are the latest national major party poll numbers:\n\n"
   puts "\tClinton\t\tTrump\t\tLeader\t\tPolling Company"
+  puts "\t-------\t\t------\t\t------\t\t---------------"
   #binding.pry
   max = [5, national_polls.polls.count].min - 1
   (0..max).each do |n|
