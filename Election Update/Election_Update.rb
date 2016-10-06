@@ -10,7 +10,7 @@ while quit != "q"
   system "clear"
   choice = 0
   while !(["1","2","3"].include?(choice))
-    puts "\nWhat kind of data are you looking for?\n\n1 => National Popular Vote\n2 => Electoral College\n3 => Fivethiryeight.com Odds\n\nPress 1, 2 or 3:"
+    puts "\nWhat kind of data are you looking for?\n\n1 => National Popular Vote\n2 => Electoral College\n3 => Winning Odds\n\nPress 1, 2 or 3:"
     choice = gets.chomp
   end
   if choice.to_i == 1
@@ -18,7 +18,7 @@ while quit != "q"
   elsif choice.to_i == 2
     run_state_polls
   else
-    run_odds_538
+    run_odds
   end
   #binding.pry
   puts "\nPress Q to quit or any other key to continue..."

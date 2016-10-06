@@ -43,13 +43,10 @@ module Pollster
         @poll_list = json[0]["questions"]
         @poll_list.each do |item|
           if item["code"].include?("Clinton")&&item["code"].include?("Trump")
-            #puts item["name"]
-
             pres_polls = item["subpopulations"][0]["responses"]
             @results << pres_polls
           else
           end
-          #puts
         end
         @results.each do |poll|
           poll.each do |entry|
