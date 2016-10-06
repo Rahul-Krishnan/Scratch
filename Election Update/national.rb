@@ -1,4 +1,3 @@
-require 'pry'
 require 'rubygems'
 require 'date'
 require './pollster_eater.rb'

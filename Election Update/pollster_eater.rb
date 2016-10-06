@@ -1,4 +1,3 @@
-require 'pry'
 require 'rubygems'
 require 'open-uri'
 require 'httparty'
