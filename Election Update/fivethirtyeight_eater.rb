@@ -26,10 +26,10 @@ module Odds
       when 2 then page = Nokogiri::HTML(HTTParty.get("http://projects.fivethirtyeight.com/2016-election-forecast/?ex_cid=rrpromo").body)
       when 3 then page = Nokogiri::HTML(HTTParty.get("http://projects.fivethirtyeight.com/2016-election-forecast/?ex_cid=rrpromo#now").body)
       end
-
-      clinton_score = page.css(".cardset.current .card.card-winprob.card-winprob-us.winprob-bar .candidate.one.dem p.candidate-val.winprob").text
-      trump_score = page.css(".cardset.current .card.card-winprob.card-winprob-us.winprob-bar .candidate.three.rep p.candidate-val.winprob").text
-      #binding.pry
+.css(".screen .cardset.current .cards .candidate-val.winprob").text
+      clinton_score = page.css(".cardset.current .cards .candidate.dem p.candidate-val.winprob").text
+      trump_score = page.css(".cardset.current .cards .candidate.rep p.candidate-val.winprob").text
+      binding.pry
 
       @scores["clinton"] = clinton_score
       @scores["trump"] = trump_score

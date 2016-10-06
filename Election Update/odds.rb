@@ -10,6 +10,7 @@ def run_odds_538
   now_cast.eat_odds
 
   system "clear"
+  puts "\nSource: Fivethiryeight.com"
   puts "\nChances of winning:"
   puts "*******************"
   puts "\nPolls-plus:"
