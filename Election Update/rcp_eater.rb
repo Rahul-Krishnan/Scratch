@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'date'
 require 'csv'
+require 'HTTParty'
 
 module RCP
   class Polls
