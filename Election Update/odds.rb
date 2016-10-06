@@ -30,33 +30,33 @@ def run_odds
   system "clear"
   puts "\nCurrent Market and Model Predictions:"
   puts "*"*65
-  puts "Source: Predictwise"
+  puts "Predictwise"
   puts "*"
-  puts "Betting Odds:\t\tClinton: #{predictwise.scores["clinton"]}%\t\tTrump: #{predictwise.scores["trump"]}%"
+  puts "Betting Odds:\t\tClinton: #{predictwise.scores["clinton"].round(1)}%\t\tTrump: #{predictwise.scores["trump"].round(1)}%"
   puts "*"*65
-  puts "Source: Fivethiryeight.com"
+  puts "Fivethiryeight.com"
   puts "*"
-  puts "Polls-plus:\t\tClinton: #{polls_plus.scores["clinton"]}%\t\tTrump: #{polls_plus.scores["trump"]}%"
+  puts "Polls-plus:\t\tClinton: #{polls_plus.scores["clinton"].round(1)}%\t\tTrump: #{polls_plus.scores["trump"].round(1)}%"
   puts "*"
-  puts "Polls-only:\t\tClinton: #{polls_only.scores["clinton"]}%\t\tTrump: #{polls_only.scores["trump"]}%"
+  puts "Polls-only:\t\tClinton: #{polls_only.scores["clinton"].round(1)}%\t\tTrump: #{polls_only.scores["trump"].round(1)}%"
   puts "*"
-  puts "Now-cast:\t\tClinton: #{now_cast.scores["clinton"]}%\t\tTrump: #{now_cast.scores["trump"]}%"
+  puts "Now-cast:\t\tClinton: #{now_cast.scores["clinton"].round(1)}%\t\tTrump: #{now_cast.scores["trump"].round(1)}%"
   puts "*"*65
-  puts "Source: Princeton Election Consortium"
+  puts "Princeton Election Consortium"
   puts "*"
-  puts "Prediction:\t\tClinton: #{princeton.scores["clinton"]}%\t\tTrump: #{princeton.scores["trump"]}%"
+  puts "Prediction:\t\tClinton: #{princeton.scores["clinton"].round(1)}%\t\tTrump: #{princeton.scores["trump"].round(1)}%"
   puts "*"*65
-  puts "Source: Pollster.com"
+  puts "Pollster.com"
   puts "*"
-  puts "Prediction:\t\tClinton: #{huffpost.scores["clinton"]}%\t\tTrump: #{huffpost.scores["trump"]}%"
+  puts "Prediction:\t\tClinton: #{huffpost.scores["clinton"].round(1)}%\t\tTrump: #{huffpost.scores["trump"].round(1)}%"
   puts "*"*65
-  puts "Source: NYTimes Upshot"
+  puts "NYTimes Upshot"
   puts "*"
-  puts "Prediction:\t\tClinton: #{upshot.scores["clinton"]}%\t\tTrump: #{upshot.scores["trump"]}%"
+  puts "Prediction:\t\tClinton: #{upshot.scores["clinton"].round(1)}%\t\tTrump: #{upshot.scores["trump"].round(1)}%"
   puts "*"*65
-  puts "Source: Daily Kos"
+  puts "Daily Kos"
   puts "*"
-  puts "Prediction:\t\tClinton: #{dailykos.scores["clinton"]}%\t\tTrump: #{dailykos.scores["trump"]}%"
+  puts "Prediction:\t\tClinton: #{dailykos.scores["clinton"].round(1)}%\t\tTrump: #{dailykos.scores["trump"].round(1)}%"
   puts "*"*65
 
 end
