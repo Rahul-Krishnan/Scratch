@@ -28,14 +28,14 @@ module UpshotSummary
       when 3
         then page = Nokogiri::HTML(HTTParty.get("http://elections.dailykos.com/app/elections/2016/office/president").body)
         clinton_score = page.css(".right-column h2 span").text.chars.first(3).join.to_f
-        binding.pry
+        #binding.pry
       when 4
         then page = Nokogiri::HTML(HTTParty.get("http://elections.huffingtonpost.com/2016/forecast/president").body)
         clinton_score = page.css("#president-summary .clinton strong").text.chars.first(4).join.to_f
       when 5
-        then page = Nokogiri::HTML(HTTParty.get("http://predictwise.com/politics/").body)
-        clinton_score = page.css("#1032 .list-value").text.chars.first(2).join.to_f
-        #binding.pry
+        then page = Nokogiri::HTML(HTTParty.get("http://predictwise.com/politics/2016-president-winner").body)
+        clinton_score = page.css(".table-wrapper .odd td:nth-child(1)").text.chars.first(2).join.to_f
+        binding.pry
       when 6
         then page = Nokogiri::HTML(HTTParty.get("http://election.princeton.edu/").body)
          clinton_score = page.css("#nav li:nth-child(4) a").text.chars.last(3).first(2).join.to_f

@@ -24,4 +24,7 @@ while quit != "q"
   puts "\nPress Q to quit or any other key to continue..."
   quit = gets.chomp.downcase
 end
+
+  #538 polls eater
+  #Upshot eater
   #Display any must-win states for each candidate
