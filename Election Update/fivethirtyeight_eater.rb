@@ -13,7 +13,7 @@ module Fivethirtyeight
     attr_accessor :state, :after_date, :scores, :results, :averages
 
     def initialize state, after_date
-      @state = state
+      @state = state.downcase
       @after_date = Date.strptime(after_date, "%Y-%m-%d")
       @scores = {
         "clinton" => [],
@@ -32,53 +32,54 @@ module Fivethirtyeight
     end
 
     def eat_polls
-      #page = Nokogiri::HTML(HTTParty.get("http://projects.fivethirtyeight.com/2016-election-forecast/#{...}/#now").body)
-      date_summary = []
-      dates_holder = page.css(".table-races .date b")
-      dates_holder.each do |element|
-        date_summary << Date.strptime(element.text, "%a, %b %d")
-      end
-      counts = []
-      page.css(".sortable").each do |table|
-        counts << table.search("tr").size-1
-      end
-      dates = []
-      date_summary.each do |date|
-        counts[date_summary.index(date)].times do
-          dates << date
-        end
-      end
-      races_title =[]
-      races_holder = page.css(".lp-race a")
-      races_holder.each do |element|
-        races_title << element.text
-      end
-      results =[]
-      results_holder = page.css(".lp-results a")
-      results_holder.each do |element|
-        results << element.text.split(/, /)
-      end
-      n = dates.length-1
-
-      (0..n).each do |x|
-        if (dates[x] > @after_date && races_title[x].include?(@state))
-          results[x].each do |entry|
-            if entry.include?("linton")
-              @scores["clinton"] << entry.split(/\s/)[1].to_f
-            elsif entry.include?("rump")
-              @scores["trump"] << entry.split(/\s/)[1].to_f
-            elsif entry.include?("ohnson")
-              @scores["johnson"] << entry.split(/\s/)[1].to_f
-            elsif entry.include?("tein")
-              @scores["stein"] << entry.split(/\s/)[1].to_f
-            elsif entry.include?("ndecided")
-              @scores["undecided"] << entry.split(/\s/)[1].to_f
-            else
-            end
-          end
-        else
-        end
-      end
+      page = Nokogiri::HTML(HTTParty.get("http://projects.fivethirtyeight.com/2016-election-forecast/#{state}/").body)
+      binding.pry
+      # date_summary = []
+      # dates_holder = page.css(".table-races .date b")
+      # dates_holder.each do |element|
+      #   date_summary << Date.strptime(element.text, "%a, %b %d")
+      # end
+      # counts = []
+      # page.css(".sortable").each do |table|
+      #   counts << table.search("tr").size-1
+      # end
+      # dates = []
+      # date_summary.each do |date|
+      #   counts[date_summary.index(date)].times do
+      #     dates << date
+      #   end
+      # end
+      # races_title =[]
+      # races_holder = page.css(".lp-race a")
+      # races_holder.each do |element|
+      #   races_title << element.text
+      # end
+      # results =[]
+      # results_holder = page.css(".lp-results a")
+      # results_holder.each do |element|
+      #   results << element.text.split(/, /)
+      # end
+      # n = dates.length-1
+      #
+      # (0..n).each do |x|
+      #   if (dates[x] > @after_date && races_title[x].include?(@state))
+      #     results[x].each do |entry|
+      #       if entry.include?("linton")
+      #         @scores["clinton"] << entry.split(/\s/)[1].to_f
+      #       elsif entry.include?("rump")
+      #         @scores["trump"] << entry.split(/\s/)[1].to_f
+      #       elsif entry.include?("ohnson")
+      #         @scores["johnson"] << entry.split(/\s/)[1].to_f
+      #       elsif entry.include?("tein")
+      #         @scores["stein"] << entry.split(/\s/)[1].to_f
+      #       elsif entry.include?("ndecided")
+      #         @scores["undecided"] << entry.split(/\s/)[1].to_f
+      #       else
+      #       end
+      #     end
+      #   else
+      #   end
+      # end
       calc_averages
     end
 
