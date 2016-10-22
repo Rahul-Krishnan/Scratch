@@ -32,8 +32,8 @@ module Fivethirtyeight
     end
 
     def eat_polls
-      page = Nokogiri::HTML(HTTParty.get("http://projects.fivethirtyeight.com/2016-election-forecast/#{state}/").body)
-      binding.pry
+      #page = Nokogiri::HTML(HTTParty.get("http://projects.fivethirtyeight.com/2016-election-forecast/#{state}/").body)
+      #binding.pry
       # date_summary = []
       # dates_holder = page.css(".table-races .date b")
       # dates_holder.each do |element|

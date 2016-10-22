@@ -160,8 +160,8 @@ end
 def run_state_polls
   #Take in latest Pollster/Princeton/RCP polling averages
   poll_source = 0
-  while !(["1","2","3","4"].include?(poll_source))
-    puts "\nPlease select source for polling data:\n\n1 => Princeton Election Consortium\n2 => RealClearPolitics\n3 => Pollster.com\n4 => Fivethirtyeight.com\n\nPress 1, 2, 3 or 4:"
+  while !(["1","2","3"].include?(poll_source))
+    puts "\nPlease select source for polling data:\n\n1 => Princeton Election Consortium\n2 => RealClearPolitics\n3 => Pollster.com\n\nPress 1, 2, or 3:"
     poll_source = gets.chomp
   end
   #Ask for max spread for a swing state and max age of polls
