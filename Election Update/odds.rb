@@ -30,17 +30,17 @@ def run_odds
   system "clear"
   puts "\nCurrent Market and Model Predictions:"
   puts "*"*65
-  puts "Predictwise"
-  puts "*"
-  puts "Betting Odds:\t\tClinton: #{predictwise.scores["clinton"].round(1)}%\t\tTrump: #{predictwise.scores["trump"].round(1)}%"
-  puts "*"*65
+  # puts "Predictwise"
+  # puts "*"
+  # puts "Betting Odds:\t\tClinton: #{predictwise.scores["clinton"].round(1)}%\t\tTrump: #{predictwise.scores["trump"].round(1)}%"
+  # puts "*"*65
   puts "Fivethiryeight.com"
   puts "*"
-  puts "Polls-plus:\t\tClinton: #{polls_plus.scores["clinton"].round(1)}%\t\tTrump: #{polls_plus.scores["trump"].round(1)}%"
-  puts "*"
+  # puts "Polls-plus:\t\tClinton: #{polls_plus.scores["clinton"].round(1)}%\t\tTrump: #{polls_plus.scores["trump"].round(1)}%"
+  # puts "*"
   puts "Polls-only:\t\tClinton: #{polls_only.scores["clinton"].round(1)}%\t\tTrump: #{polls_only.scores["trump"].round(1)}%"
-  puts "*"
-  puts "Now-cast:\t\tClinton: #{now_cast.scores["clinton"].round(1)}%\t\tTrump: #{now_cast.scores["trump"].round(1)}%"
+  # puts "*"
+  # puts "Now-cast:\t\tClinton: #{now_cast.scores["clinton"].round(1)}%\t\tTrump: #{now_cast.scores["trump"].round(1)}%"
   puts "*"*65
   puts "Princeton Election Consortium"
   puts "*"
@@ -54,9 +54,9 @@ def run_odds
   puts "*"
   puts "Prediction:\t\tClinton: #{upshot.scores["clinton"].round(1)}%\t\tTrump: #{upshot.scores["trump"].round(1)}%"
   puts "*"*65
-  puts "Daily Kos"
-  puts "*"
-  puts "Prediction:\t\tClinton: #{dailykos.scores["clinton"].round(1)}%\t\tTrump: #{dailykos.scores["trump"].round(1)}%"
-  puts "*"*65
+  # puts "Daily Kos"
+  # puts "*"
+  # puts "Prediction:\t\tClinton: #{dailykos.scores["clinton"].round(1)}%\t\tTrump: #{dailykos.scores["trump"].round(1)}%"
+  # puts "*"*65
 
 end
