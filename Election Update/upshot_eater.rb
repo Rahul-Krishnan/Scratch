@@ -35,7 +35,7 @@ module UpshotSummary
       when 5
         then page = Nokogiri::HTML(HTTParty.get("http://predictwise.com/politics/2016-president-winner").body)
         clinton_score = page.css(".table-wrapper .odd td:nth-child(1)").text.chars.first(2).join.to_f
-        #binding.pry
+        binding.pry
       when 6
         then page = Nokogiri::HTML(HTTParty.get("http://election.princeton.edu/").body)
          clinton_score = page.css("#nav li:nth-child(4) a").text.chars.last(3).first(2).join.to_f
