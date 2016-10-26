@@ -4,7 +4,7 @@ require 'open-uri'
 require 'csv'
 require 'date'
 
-module Princeton
+module StatePrinceton
   class Polls
 
     attr_accessor :state, :after_date, :scores, :averages, :poll_list

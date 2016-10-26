@@ -16,7 +16,7 @@ class National
 #method to pull in polling data
   def fill_polls(poll_source, days)
     date = (Date.today-days).to_s
-    if poll_source == "1"
+    if poll_source == 1
       polls_holder = NationalRCP::Polls.new(date)
       polls_holder.eat_polls
 
@@ -35,7 +35,7 @@ class National
           @polls << [score.round(1), trump_score.round(1), poll_name]
         end
       end
-    elsif poll_source == "2"
+    elsif poll_source == 2
       polls_holder = NationalPollster::Polls.new(date)
       polls_holder.eat_polls
 
@@ -61,9 +61,12 @@ end
 
 def run_national_polls
   poll_source = 0
-  while !(["1","2"].include?(poll_source))
-    puts "\nPlease select source for polling data:\n\n1 => RealClearPolitics\n2 => Pollster.com\n\nPress 1 or 2:"
-    poll_source = gets.chomp
+  while !((1..2).include?(poll_source))
+    puts "\nPlease select source for polling data:"
+    puts "\n1 => RealClearPolitics"
+    puts "2 => Pollster.com"
+    puts "\nPress 1 or 2:"
+    poll_source = gets.chomp.to_i
   end
   #Ask for max age of polls
 
@@ -81,8 +84,8 @@ def run_national_polls
   #Output National Poll Averages and 5 Latest Polls with pollster name
   system "clear"
   case poll_source
-  when "1" then puts "\nPolls source: RealClearPolitics; polls ending in the past #{days} days"
-  when "2" then puts "\nPolls source: Pollster.com; polls ending in the last #{days} days"
+  when 1 then puts "\nPolls source: RealClearPolitics; polls ending in the past #{days} days"
+  when 2 then puts "\nPolls source: Pollster.com; polls ending in the last #{days} days"
   end
 
   puts "\n\nCurrent National Averages:"

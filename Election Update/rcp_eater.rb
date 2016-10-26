@@ -6,7 +6,7 @@ require 'date'
 require 'csv'
 require 'HTTParty'
 
-module RCP
+module StateRCP
   class Polls
 
     attr_accessor :state, :after_date, :scores, :results, :averages

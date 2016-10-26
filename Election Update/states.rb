@@ -9,7 +9,8 @@ class States
 #a hash for all the polls and EC votes
 #a sorted array for swing state electoral college votes
 #swing, clinton and trump state arrays
-  attr_accessor :polls, :swing_states, :clinton_states, :trump_states, :swing_votes, :clinton_votes, :trump_votes
+  attr_accessor :polls, :swing_states, :clinton_states, :trump_states, \
+  :swing_votes, :clinton_votes, :trump_votes
 
   def initialize
     @polls = {
@@ -108,9 +109,9 @@ class States
 #method to pull in polling data
   def fill_polls(poll_source, days)
     date = (Date.today-days).to_s
-    if poll_source == "1"
+    if poll_source == 1
       @polls.keys.each do |state|
-        polls_holder = Princeton::Polls.new(state, date)
+        polls_holder = StatePrinceton::Polls.new(state, date)
         polls_holder.eat_polls
 
         if polls_holder.scores["clinton"] == []
@@ -119,9 +120,9 @@ class States
         @polls[state][2] = polls_holder.averages["trump"]
         end
       end
-    elsif poll_source == "2"
+    elsif poll_source == 2
       @polls.keys.each do |state|
-        polls_holder = RCP::Polls.new(@polls[state][3], date)
+        polls_holder = StateRCP::Polls.new(@polls[state][3], date)
         polls_holder.eat_polls
 
         if polls_holder.scores["clinton"] == []
@@ -130,9 +131,9 @@ class States
         @polls[state][2] = polls_holder.averages["trump"]
         end
       end
-    elsif poll_source == "3"
+    elsif poll_source == 3
       @polls.keys.each do |state|
-        polls_holder = Pollster::Polls.new(state, date)
+        polls_holder = StatePollster::Polls.new(state, date)
         polls_holder.eat_polls
 
         if polls_holder.scores["clinton"] == []
@@ -141,9 +142,9 @@ class States
         @polls[state][2] = polls_holder.averages["trump"]
         end
       end
-    elsif poll_source == "4"
+    elsif poll_source == 4
       @polls.keys.each do |state|
-        polls_holder = Fivethirtyeight::Polls.new(@polls[state][3], date)
+        polls_holder = StateFivethirtyeight::Polls.new(@polls[state][3], date)
         polls_holder.eat_polls
 
         if polls_holder.scores["clinton"] == []
@@ -160,9 +161,13 @@ end
 def run_state_polls
   #Take in latest Pollster/Princeton/RCP polling averages
   poll_source = 0
-  while !(["1","2","3"].include?(poll_source))
-    puts "\nPlease select source for polling data:\n\n1 => Princeton Election Consortium\n2 => RealClearPolitics\n3 => Pollster.com\n\nPress 1, 2, or 3:"
-    poll_source = gets.chomp
+  while !((1..3).include?(poll_source))
+    puts "\nPlease select source for polling data:"
+    puts "\n1 => Princeton Election Consortium"
+    puts "2 => RealClearPolitics"
+    puts "3 => Pollster.com"
+    puts "\nPress 1, 2, or 3:"
+    poll_source = gets.chomp.to_i
   end
   #Ask for max spread for a swing state and max age of polls
   spread = 0
@@ -188,11 +193,12 @@ def run_state_polls
   #Output Electoral College Breakdown
   system "clear"
   case poll_source
-  when "1" then puts "\nPolls source: Princeton Election Consortium; polls ending in the past #{days} days"
-  when "2" then puts "\nPolls source: RealClearPolitics; polls ending in the past #{days} days"
-  when "3" then puts "\nPolls source: Pollster.com; polls ending in the last #{days} days"
-  when "4" then puts "\nPolls source: Fivethirtyeight.com; polls ending in the last #{days} days"
+  when 1 then puts "\nPolls source: Princeton Election Consortium; polls ending in the past #{days} days"
+  when 2 then puts "\nPolls source: RealClearPolitics; polls ending in the past #{days} days"
+  when 3 then puts "\nPolls source: Pollster.com; polls ending in the last #{days} days"
+  when 4 then puts "\nPolls source: Fivethirtyeight.com; polls ending in the last #{days} days"
   end
+
   puts "\nCurrent Electoral College Breakdown:"
   puts "\nClinton: #{state_polls.clinton_votes}\t(Needs #{270-state_polls.clinton_votes} more to win)"
   state_polls.clinton_states.each do |row|

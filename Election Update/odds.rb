@@ -5,9 +5,9 @@ def run_odds
 
   puts "\nPlease wait..."
 
-  polls_plus = Fivethirtyeight::Odds.new(1)
-  polls_only = Fivethirtyeight::Odds.new(2)
-  now_cast = Fivethirtyeight::Odds.new(3)
+  polls_plus = NationalFivethirtyeight::Odds.new(1)
+  polls_only = NationalFivethirtyeight::Odds.new(2)
+  now_cast = NationalFivethirtyeight::Odds.new(3)
 
   upshot = UpshotSummary::Odds.new(1)
   fivethirtyeight = UpshotSummary::Odds.new(2)

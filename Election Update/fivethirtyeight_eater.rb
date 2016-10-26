@@ -6,7 +6,7 @@ require 'date'
 require 'csv'
 require 'HTTParty'
 
-module Fivethirtyeight
+module StateFivethirtyeight
 
   class Polls
 
@@ -92,8 +92,10 @@ module Fivethirtyeight
     end
 
   end
+end
 
-
+module NationalFivethirtyeight
+  
   class Odds
 
     attr_accessor :scores, :type

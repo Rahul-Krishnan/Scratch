@@ -2,7 +2,7 @@ require 'rubygems'
 require 'open-uri'
 require 'httparty'
 
-module Pollster
+module StatePollster
   class Polls
 
     attr_accessor :state, :after_date, :scores, :results, :averages, :poll_list
