@@ -22,14 +22,11 @@ class National
 
       if polls_holder.scores["clinton"] == []
       else
-        @averages["clinton"] = polls_holder.averages["clinton"]
-        @averages["trump"] = polls_holder.averages["trump"]
-        @averages["johnson"] = polls_holder.averages["johnson"]
-        @averages["stein"] = polls_holder.averages["stein"]
-        @averages["undecided"] = polls_holder.averages["undecided"]
+        %w(clinton trump johnson stein undecided).each do |candidate|
+          @averages[candidate] = polls_holder.averages[candidate]
+        end
 
         polls_holder.scores["clinton"].each_with_index do |score, index|
-
           trump_score = polls_holder.scores["trump"][index]
           poll_name = polls_holder.names[index]
           @polls << [score.round(1), trump_score.round(1), poll_name]
@@ -41,14 +38,11 @@ class National
 
       if polls_holder.scores["clinton"] == []
       else
-        @averages["clinton"] = polls_holder.averages["clinton"]
-        @averages["trump"] = polls_holder.averages["trump"]
-        @averages["johnson"] = polls_holder.averages["johnson"]
-        @averages["stein"] = polls_holder.averages["stein"]
-        @averages["undecided"] = polls_holder.averages["undecided"]
+        %w(clinton trump johnson stein undecided).each do |candidate|
+          @averages[candidate] = polls_holder.averages[candidate]
+        end
 
         polls_holder.scores["clinton"].each_with_index do |score, index|
-
           trump_score = polls_holder.scores["trump"][index]
           poll_name = polls_holder.names[index]
           @polls << [score.round(1), trump_score.round(1), poll_name]

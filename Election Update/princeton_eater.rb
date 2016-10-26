@@ -50,10 +50,9 @@ module StatePrinceton
     end
 
     def calc_averages
-      @averages["clinton"] = @scores["clinton"].reduce(:+)/@scores["clinton"].count unless @scores["clinton"].count == 0
-      @averages["trump"] = @scores["trump"].reduce(:+)/@scores["trump"].count unless @scores["trump"].count == 0
-      @averages["other"] = @scores["other"].reduce(:+)/@scores["other"].count unless @scores["other"].count == 0
-      @averages["undecided"] = @scores["undecided"].reduce(:+)/@scores["undecided"].count unless @scores["undecided"].count == 0
+      %w(clinton trump other undecided).each do |candidate|
+        @averages[candidate] = @scores[candidate].reduce(:+)/@scores[candidate].count unless @scores[candidate].count == 0
+      end
     end
   end
 end

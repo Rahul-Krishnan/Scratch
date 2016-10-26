@@ -17,3 +17,4 @@ Remaining items:
 -  Convert state hashes into symbols to save memory?
 -  Pull in state data concurrently rather than one at a time
 -  Display any must-win states for each candidate
+-  Open program in terminal on click in Explorer

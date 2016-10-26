@@ -84,18 +84,16 @@ module StateFivethirtyeight
     end
 
     def calc_averages
-      @averages["clinton"] = @scores["clinton"].reduce(:+)/@scores["clinton"].count unless @scores["clinton"].count == 0
-      @averages["trump"] = @scores["trump"].reduce(:+)/@scores["trump"].count unless @scores["trump"].count == 0
-      @averages["johnson"] = @scores["johnson"].reduce(:+)/@scores["johnson"].count unless @scores["johnson"].count == 0
-      @averages["stein"] = @scores["stein"].reduce(:+)/@scores["stein"].count unless @scores["stein"].count == 0
-      @averages["undecided"] = @scores["undecided"].reduce(:+)/@scores["undecided"].count unless @scores["undecided"].count == 0
+      %w(clinton trump johnson stein undecided).each do |candidate|
+        @averages[candidate] = @scores[candidate].reduce(:+)/@scores[candidate].count unless @scores[candidate].count == 0
+      end
     end
 
   end
 end
 
 module NationalFivethirtyeight
-  
+
   class Odds
 
     attr_accessor :scores, :type
