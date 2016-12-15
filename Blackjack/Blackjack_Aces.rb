@@ -63,6 +63,8 @@ class Player
   end
 end
 
+#############################################################
+
 #Initialize Players
 human = Player.new "human", 0, 0
 dealer = Player.new "dealer", 0, 0
